@@ -660,6 +660,66 @@ a {
   background: var(--paddocks-red);
 }
 
+.inventory-section {
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.inventory-unit {
+  border: 1px solid rgba(132, 17, 28, 0.2);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.inventory-button {
+  width: 100%;
+  padding: 20px;
+  background: var(--white);
+  border: none;
+  border-bottom: 2px solid rgba(132, 17, 28, 0.1);
+  text-align: left;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  cursor: pointer;
+  transition: all 200ms ease;
+}
+
+.inventory-button:hover {
+  background: rgba(132, 17, 28, 0.05);
+  border-bottom-color: var(--paddocks-red);
+}
+
+.inventory-details {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 300ms ease;
+  background: rgba(132, 17, 28, 0.02);
+}
+
+.inventory-details.open {
+  max-height: 600px;
+}
+
+.inventory-details ul {
+  margin: 0;
+  padding: 20px 20px 20px 40px;
+  list-style-type: disc;
+}
+
+.inventory-details li {
+  margin: 10px 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-dark);
+}
+
 .contact-form-inline {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -925,6 +985,11 @@ a {
     font-size: 1.2rem;
   }
 
+  .inventory-button {
+    padding: 18px;
+    font-size: 0.95rem;
+  }
+
   .experience-grid {
     grid-template-columns: repeat(3, 1fr);
     gap: 16px;
@@ -1028,6 +1093,19 @@ a {
 
   .indicator.active {
     width: 28px;
+  }
+
+  .inventory-button {
+    padding: 16px;
+    font-size: 0.9rem;
+  }
+
+  .inventory-details ul {
+    padding: 16px 16px 16px 32px;
+  }
+
+  .inventory-details li {
+    font-size: 0.9rem;
   }
 
   .contact-form-inline {
@@ -1397,6 +1475,46 @@ a {
           <span class="indicator" data-index="4"></span>
           <span class="indicator" data-index="5"></span>
         </div>
+
+        <div class="inventory-section">
+          <div class="inventory-unit">
+            <button class="inventory-button" data-unit="standard">
+              Standard Unit (#1-9) • 25'x60' • 1,500 sq.ft. • $525,000
+            </button>
+            <div class="inventory-details" id="standard-details">
+              <ul>
+                <li>Fully Insulated</li>
+                <li>HVAC</li>
+                <li>Lighting</li>
+                <li>14'x18' power garage door</li>
+                <li>36" Man Door</li>
+                <li>Rough Plumbing to tie in bathroom/bar/RV/etc. services</li>
+                <li>200 Amp Power Service</li>
+                <li>Independent electrical panel and meter with minimal electrical outlets</li>
+                <li>Upgrades at your own choice, cost and risk, you may upgrade or modify the interior of your unit.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="inventory-unit">
+            <button class="inventory-button" data-unit="oversized">
+              Oversized Unit (#10) • 35'x60' • 2,100 sq.ft. • $735,000
+            </button>
+            <div class="inventory-details" id="oversized-details">
+              <ul>
+                <li>Fully Insulated</li>
+                <li>HVAC</li>
+                <li>Lighting</li>
+                <li>14'x18' power garage door</li>
+                <li>36" Man Door</li>
+                <li>Rough Plumbing to tie in bathroom/bar/RV/etc. services</li>
+                <li>200 Amp Power Service</li>
+                <li>Independent electrical panel and meter with minimal electrical outlets</li>
+                <li>Upgrades at your own choice, cost and risk, you may upgrade or modify the interior of your unit.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -1736,6 +1854,26 @@ a {
       } else if (event.key === "ArrowRight") {
         updateCarousel(currentIndex + 1);
       }
+    });
+
+    // Inventory Unit Accordion
+    const inventoryButtons = document.querySelectorAll(".inventory-button");
+
+    inventoryButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const unit = button.dataset.unit;
+        const details = document.getElementById(unit + "-details");
+
+        // Close all other details
+        document.querySelectorAll(".inventory-details").forEach((detail) => {
+          if (detail !== details) {
+            detail.classList.remove("open");
+          }
+        });
+
+        // Toggle current details
+        details.classList.toggle("open");
+      });
     });
   </script>
 </body>
