@@ -829,6 +829,17 @@ a {
   line-height: 1.5;
 }
 
+.contact-info-item a {
+  color: var(--paddocks-red);
+  text-decoration: none;
+  transition: color 200ms ease;
+}
+
+.contact-info-item a:hover {
+  color: var(--paddocks-red-dark);
+  text-decoration: underline;
+}
+
 .contact-bottom {
   margin-top: 60px;
   padding: 40px;
@@ -1604,7 +1615,11 @@ a {
                 <div class="icon">📍</div>
                 <div class="content">
                   <h4>Location</h4>
-                  <p>The Paddocks<br />Irvine, California</p>
+                  <p>
+                    <a href="https://www.google.com/maps/search/7215+Golden+Wings+Road,+Jacksonville,+FL+32244" target="_blank" rel="noopener noreferrer">
+                      7215 Golden Wings Road<br />Jacksonville, FL 32244
+                    </a>
+                  </p>
                 </div>
               </div>
 
@@ -1612,7 +1627,7 @@ a {
                 <div class="icon">📞</div>
                 <div class="content">
                   <h4>Phone</h4>
-                  <p>(949) XXX-XXXX</p>
+                  <p><a href="tel:+19045828549">+1 (904) 582-8549</a></p>
                 </div>
               </div>
 
@@ -1620,7 +1635,7 @@ a {
                 <div class="icon">✉️</div>
                 <div class="content">
                   <h4>Email</h4>
-                  <p>info@thepaddocks.com</p>
+                  <p><a href="mailto:doug@thepaddocks.us">doug@thepaddocks.us</a></p>
                 </div>
               </div>
 
@@ -1628,7 +1643,7 @@ a {
                 <div class="icon">🌐</div>
                 <div class="content">
                   <h4>Website</h4>
-                  <p>thepaddocks.com</p>
+                  <p><a href="https://thepaddocks.us/" target="_blank" rel="noopener noreferrer">https://thepaddocks.us/</a></p>
                 </div>
               </div>
 
