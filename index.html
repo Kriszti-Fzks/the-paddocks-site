@@ -370,20 +370,38 @@ a {
   background: var(--bg-light);
 }
 
-.experience-images {
-  display: flex;
-  gap: 16px;
+.experience-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
   margin: 50px 0 60px;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  padding-bottom: 8px;
 }
 
-.experience-images img {
-  flex: 0 0 auto;
-  max-height: 300px;
-  border-radius: 0;
+.experience-item {
+  text-align: center;
+}
+
+.experience-item img {
+  width: 100%;
+  aspect-ratio: 1;
   object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.experience-item h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+  color: var(--text-dark);
+}
+
+.experience-item p {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--text-graphite);
+  margin: 0;
 }
 
 .experience-cards {
@@ -871,6 +889,11 @@ a {
     grid-template-columns: 1fr;
   }
 
+  .experience-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
   .experience-cards {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   }
@@ -927,8 +950,9 @@ a {
     padding: 0 18px;
   }
 
-  .experience-images {
-    gap: 12px;
+  .experience-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
     margin: 30px 0 40px;
   }
 
@@ -1075,36 +1099,33 @@ a {
           terms.
         </p>
 
-        <div class="experience-images">
-          <img src="Experience_image1 Small.jpeg" alt="Experience showcase" />
-          <img src="Experience_image2 Small.jpeg" alt="Experience showcase" />
-          <img src="Experience_image3 Small.jpeg" alt="Experience showcase" />
-          <img src="Experience_image4 Small.jpeg" alt="Experience showcase" />
-          <img src="Experience _image5 Small.jpeg" alt="Experience showcase" />
-        </div>
-
-        <div class="experience-cards">
-          <div class="experience-card">
+        <div class="experience-grid">
+          <div class="experience-item">
+            <img src="Experience_1.jpg" alt="Architectural Excellence" />
             <h3>Architectural Excellence</h3>
             <p>Timeless architecture that elevates every arrival.</p>
           </div>
 
-          <div class="experience-card">
+          <div class="experience-item">
+            <img src="Experience_2.jpg" alt="Private Ownership" />
             <h3>Private Ownership</h3>
             <p>Your space. Your collection. Your rules.</p>
           </div>
 
-          <div class="experience-card">
+          <div class="experience-item">
+            <img src="Experience_3.jpg" alt="Like-Minded Community" />
             <h3>Like-Minded Community</h3>
             <p>A place where enthusiasts naturally connect.</p>
           </div>
 
-          <div class="experience-card">
+          <div class="experience-item">
+            <img src="Experience_4.jpg" alt="Built For Enthusiasts" />
             <h3>Built For Enthusiasts</h3>
             <p>Designed around the way you live, build, and enjoy your passion.</p>
           </div>
 
-          <div class="experience-card">
+          <div class="experience-item">
+            <img src="Experience_5.jpg" alt="A Lasting Investment" />
             <h3>A Lasting Investment</h3>
             <p>A timeless destination built to hold value for generations.</p>
           </div>
