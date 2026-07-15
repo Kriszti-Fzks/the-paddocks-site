@@ -420,16 +420,17 @@ a {
 
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
   margin: 50px 0 60px;
 }
 
 .gallery-grid img {
   width: 100%;
-  height: auto;
+  aspect-ratio: 1;
   object-fit: cover;
   display: block;
+  border-radius: 4px;
 }
 
 .gallery-cta-text {
@@ -872,6 +873,11 @@ a {
 
   .experience-cards {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
   }
 }
 
