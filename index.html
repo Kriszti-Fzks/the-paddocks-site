@@ -460,6 +460,13 @@ a {
   text-align: center;
 }
 
+.personas-gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  margin: 50px 0 60px;
+}
+
 /* ===== CALENDAR SECTION ===== */
 .calendar-section {
   background: var(--bg-light);
@@ -1057,6 +1064,11 @@ a {
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
   }
+
+  .personas-gallery {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
 }
 
 @media (max-width: 700px) {
@@ -1622,13 +1634,53 @@ a {
           building, entertaining, relaxing, and creating.
         </p>
 
-        <div class="gallery-grid">
-          <img src="assets/Gallery_1.jpg" alt="Paddocks gallery space" />
-          <img src="assets/Gallery_2.jpg" alt="Paddocks gallery space" />
-          <img src="assets/Gallery_3.jpg" alt="Paddocks gallery space" />
-          <img src="assets/Gallery_4.jpg" alt="Paddocks gallery space" />
-          <img src="assets/Gallery_5.jpg" alt="Paddocks gallery space" />
-          <img src="assets/Lobby.jpg" alt="Paddocks lobby" />
+        <p style="font-size: 0.9rem; color: var(--text-graphite); text-align: center; margin: 30px 0 50px 0; font-style: italic; max-width: 700px; margin-left: auto; margin-right: auto;">
+          Conceptual renderings illustrating possible owner configurations. Final improvements are selected and completed by each owner, subject to project documents and approvals.
+        </p>
+
+        <!-- Personas Gallery Grid -->
+        <div class="personas-gallery">
+          <!-- The Collector -->
+          <div>
+            <h3 style="font-family: 'Racing Sans One', sans-serif; font-size: 1.3rem; font-weight: 400; text-transform: uppercase; color: var(--text-dark); margin: 0 0 20px 0;">The Collector</h3>
+            <img src="assets/Gallery_1.jpg" alt="The Collector - garage space for automotive collections" style="width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 4px; margin-bottom: 16px; display: block;" />
+            <p style="font-size: 0.95rem; line-height: 1.6; color: var(--text-graphite); margin: 0;">Curated spaces designed to showcase and preserve prized automotive collections with climate control and security.</p>
+          </div>
+
+          <!-- The Builder -->
+          <div>
+            <h3 style="font-family: 'Racing Sans One', sans-serif; font-size: 1.3rem; font-weight: 400; text-transform: uppercase; color: var(--text-dark); margin: 0 0 20px 0;">The Builder</h3>
+            <img src="assets/Gallery_2.jpg" alt="The Builder - workshop space with tools and equipment" style="width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 4px; margin-bottom: 16px; display: block;" />
+            <p style="font-size: 0.95rem; line-height: 1.6; color: var(--text-graphite); margin: 0;">Full workshop environments with power service, HVAC, and custom configurations for restoration and fabrication projects.</p>
+          </div>
+
+          <!-- The Host -->
+          <div>
+            <h3 style="font-family: 'Racing Sans One', sans-serif; font-size: 1.3rem; font-weight: 400; text-transform: uppercase; color: var(--text-dark); margin: 0 0 20px 0;">The Host</h3>
+            <img src="assets/Gallery_3.jpg" alt="The Host - entertaining and social space" style="width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 4px; margin-bottom: 16px; display: block;" />
+            <p style="font-size: 0.95rem; line-height: 1.6; color: var(--text-graphite); margin: 0;">Elegant gathering spaces where automotive passion meets hospitality, perfect for community events and entertaining.</p>
+          </div>
+
+          <!-- The Entrepreneur -->
+          <div>
+            <h3 style="font-family: 'Racing Sans One', sans-serif; font-size: 1.3rem; font-weight: 400; text-transform: uppercase; color: var(--text-dark); margin: 0 0 20px 0;">The Entrepreneur</h3>
+            <img src="assets/Gallery_4.jpg" alt="The Entrepreneur - business and retail space" style="width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 4px; margin-bottom: 16px; display: block;" />
+            <p style="font-size: 0.95rem; line-height: 1.6; color: var(--text-graphite); margin: 0;">Professional spaces designed for automotive-related businesses, services, and retail opportunities within the community.</p>
+          </div>
+
+          <!-- The Legacy Owner -->
+          <div>
+            <h3 style="font-family: 'Racing Sans One', sans-serif; font-size: 1.3rem; font-weight: 400; text-transform: uppercase; color: var(--text-dark); margin: 0 0 20px 0;">The Legacy Owner</h3>
+            <img src="assets/Gallery_5.jpg" alt="The Legacy Owner - multigenerational space" style="width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 4px; margin-bottom: 16px; display: block;" />
+            <p style="font-size: 0.95rem; line-height: 1.6; color: var(--text-graphite); margin: 0;">Timeless spaces designed to be passed down through generations, holding value and memories for years to come.</p>
+          </div>
+
+          <!-- Community Hub -->
+          <div>
+            <h3 style="font-family: 'Racing Sans One', sans-serif; font-size: 1.3rem; font-weight: 400; text-transform: uppercase; color: var(--text-dark); margin: 0 0 20px 0;">The Community</h3>
+            <img src="assets/Lobby.jpg" alt="The Paddocks community lobby and gathering space" style="width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 4px; margin-bottom: 16px; display: block;" />
+            <p style="font-size: 0.95rem; line-height: 1.6; color: var(--text-graphite); margin: 0;">Shared spaces that bring enthusiasts together—where like-minded owners connect, collaborate, and celebrate their passion.</p>
+          </div>
         </div>
 
         <h2 class="gallery-cta-text">Ready to create your own space?</h2>
