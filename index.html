@@ -462,8 +462,8 @@ a {
 
 .personas-gallery {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 50px;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 40px;
   margin: 50px 0 60px;
 }
 
@@ -1066,8 +1066,15 @@ a {
   }
 
   .personas-gallery {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+}
+
+@media (max-width: 700px) {
+  .personas-gallery {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 30px;
   }
 }
 
