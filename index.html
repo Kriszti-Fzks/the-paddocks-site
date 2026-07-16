@@ -2359,17 +2359,14 @@ a {
         const dayCell = document.createElement(eventInfo ? 'button' : 'div');
         dayCell.className = 'calendar-day';
 
-        if (eventInfo) {
-          dayCell.classList.add('event-date');
+        dayCell.classList.add('event-date');
           dayCell.dataset.event = eventInfo.id;
           dayCell.style.cursor = 'pointer';
-          dayCell.style.background = 'linear-gradient(135deg, rgba(132, 17, 28, 0.08), rgba(132, 17, 28, 0.03))';
-          dayCell.style.borderTop = '3px solid var(--paddocks-red)';
-          dayCell.style.borderRadius = '2px';
           dayCell.style.position = 'relative';
+          dayCell.style.background = 'var(--bg-page)';
           dayCell.innerHTML = `
-            <div style="font-size: 1.1rem; font-weight: 700; color: var(--text-dark); margin-bottom: 4px;">${day}</div>
-            <div style="font-size: 0.65rem; font-weight: 600; color: var(--paddocks-red); text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.3;">${eventInfo.name}</div>
+            <div style="font-size: 1rem; font-weight: 600; color: var(--text-dark);">${day}</div>
+            <div style="position: absolute; bottom: -1px; right: -1px; background: var(--paddocks-red-dark); color: white; padding: 8px 12px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; text-align: center; min-width: 90px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);">${eventInfo.name}</div>
           `;
         } else {
           dayCell.textContent = day;
