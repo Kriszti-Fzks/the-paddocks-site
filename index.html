@@ -1187,6 +1187,267 @@ a {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ===== LEAD CAPTURE MODAL ===== */
+.lead-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.lead-modal.is-open {
+  display: flex;
+}
+
+.lead-modal-content {
+  background: var(--white);
+  width: 100%;
+  max-width: 700px;
+  padding: clamp(40px, 8vw, 60px);
+  border-radius: 8px;
+  position: relative;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.lead-modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  font-size: 2rem;
+  color: var(--text-dark);
+  cursor: pointer;
+  transition: color 180ms ease;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lead-modal-close:hover {
+  color: var(--paddocks-red);
+}
+
+.lead-modal-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.lead-modal-logo {
+  height: 80px;
+  width: auto;
+  margin-bottom: 12px;
+  object-fit: contain;
+}
+
+.lead-modal-tagline {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-graphite);
+  margin: 0;
+}
+
+.lead-modal-title {
+  font-family: "Racing Sans One", sans-serif;
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  font-weight: 400;
+  text-transform: uppercase;
+  color: var(--text-dark);
+  margin: 20px 0 8px 0;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.lead-modal-title::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: var(--paddocks-red);
+  margin: 16px auto 0;
+}
+
+.lead-modal-description {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-graphite);
+  text-align: center;
+  margin: 24px 0 32px 0;
+}
+
+.lead-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.lead-form .form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.lead-form label:not(.checkbox-item):not(.checkbox-label) {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-dark);
+  margin-bottom: 8px;
+}
+
+.lead-form input[type="text"],
+.lead-form input[type="email"],
+.lead-form input[type="tel"] {
+  padding: 14px 16px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.95rem;
+  background: var(--white);
+  transition: border-color 180ms ease;
+}
+
+.lead-form input[type="text"]:focus,
+.lead-form input[type="email"]:focus,
+.lead-form input[type="tel"]:focus {
+  outline: none;
+  border-color: var(--paddocks-red);
+}
+
+.checkbox-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-dark);
+  margin-bottom: 4px;
+}
+
+.checkbox-sublabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-graphite);
+  margin: 0 0 16px 0;
+}
+
+.checkbox-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 0;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 0.95rem;
+  color: var(--text-dark);
+  cursor: pointer;
+  line-height: 1.5;
+}
+
+.checkbox-item.full-width {
+  grid-column: 1 / -1;
+  margin-top: 8px;
+}
+
+.checkbox-item input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  margin-top: 2px;
+  cursor: pointer;
+  accent-color: var(--paddocks-red);
+}
+
+.lead-submit-btn {
+  padding: 16px 24px;
+  background: var(--paddocks-red);
+  color: var(--white);
+  border: none;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 180ms ease;
+  margin-top: 8px;
+}
+
+.lead-submit-btn:hover,
+.lead-submit-btn:focus-visible {
+  background: var(--paddocks-red-dark);
+  transform: translateY(-2px);
+}
+
+.lead-privacy {
+  font-size: 0.8rem;
+  color: var(--text-graphite);
+  text-align: center;
+  margin: 16px 0 0 0;
+}
+
+.success-message {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.success-message h3 {
+  font-family: "Racing Sans One", sans-serif;
+  font-size: 2rem;
+  color: var(--paddocks-red);
+  margin: 0 0 12px 0;
+}
+
+.success-message p {
+  font-size: 1rem;
+  color: var(--text-graphite);
+  margin: 0;
+  line-height: 1.6;
+}
+
+@media (max-width: 700px) {
+  .lead-modal-content {
+    padding: 30px 20px;
+  }
+
+  .lead-modal-logo {
+    height: 60px;
+  }
+
+  .lead-modal-title {
+    font-size: 1.8rem;
+  }
+
+  .checkbox-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .lead-form input[type="text"],
+  .lead-form input[type="email"],
+  .lead-form input[type="tel"] {
+    padding: 12px 14px;
+    font-size: 0.9rem;
+  }
+}
   </style>
 </head>
 
@@ -1840,6 +2101,87 @@ a {
     }
   </style>
 
+  <!-- LEAD CAPTURE MODAL -->
+  <div id="leadModal" class="lead-modal">
+    <div class="lead-modal-content">
+      <button class="lead-modal-close" aria-label="Close form">&times;</button>
+
+      <div class="lead-modal-header">
+        <img src="Burgundy_logo.png" alt="The Paddocks" class="lead-modal-logo" />
+        <p class="lead-modal-tagline">A GARAGE CONDOMINIUM COMMUNITY</p>
+      </div>
+
+      <h2 class="lead-modal-title">JOIN THE EARLY<br />INTEREST LIST</h2>
+
+      <p class="lead-modal-description">
+        Be among the first to receive project updates, availability announcements, and early access opportunities.
+      </p>
+
+      <form id="leadForm" class="lead-form">
+        <div class="form-group">
+          <label for="fullName">FULL NAME</label>
+          <input type="text" id="fullName" name="name" placeholder="Enter your full name" required />
+        </div>
+
+        <div class="form-group">
+          <label for="email">EMAIL ADDRESS</label>
+          <input type="email" id="email" name="email" placeholder="Enter your email address" required />
+        </div>
+
+        <div class="form-group">
+          <label for="phone">PHONE NUMBER</label>
+          <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required />
+        </div>
+
+        <div class="form-group">
+          <label class="checkbox-label">WHAT WOULD YOU LIKE THE PADDOCKS TO MAKE POSSIBLE FOR YOU?</label>
+          <p class="checkbox-sublabel">SELECT ALL THAT APPLY.</p>
+
+          <div class="checkbox-grid">
+            <label class="checkbox-item">
+              <input type="checkbox" name="interests" value="A dedicated space for my vehicles" />
+              A dedicated space for my vehicles
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" name="interests" value="A community of automotive enthusiasts" />
+              A community of automotive enthusiasts
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" name="interests" value="A place to build, restore, or work on my collection" />
+              A place to build, restore, or work on my collection
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" name="interests" value="A long-term ownership opportunity" />
+              A long-term ownership opportunity
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" name="interests" value="A private space to relax and entertain" />
+              A private space to relax and entertain
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" name="interests" value="Something else" />
+              Something else
+            </label>
+          </div>
+        </div>
+
+        <label class="checkbox-item full-width">
+          <input type="checkbox" id="newsletter" name="newsletter" value="on" />
+          Keep me informed with news and updates from The Paddocks.
+        </label>
+
+        <button type="submit" class="lead-submit-btn">JOIN THE EARLY INTEREST LIST</button>
+
+        <p class="lead-privacy">We respect your privacy. You can unsubscribe at any time.</p>
+      </form>
+
+      <div id="successMessage" class="success-message" style="display: none;">
+        <h3>Thank you!</h3>
+        <p>You've been added to our early interest list. We'll be in touch soon with updates.</p>
+      </div>
+    </div>
+  </div>
+
   <script>
     const menuToggle = document.querySelector(".menu-toggle");
     const mobileMenu = document.querySelector("#mobile-menu");
@@ -1939,6 +2281,93 @@ a {
         // Toggle current details
         details.classList.toggle("open");
       });
+    });
+
+    // Lead Capture Modal
+    const leadModal = document.getElementById("leadModal");
+    const leadForm = document.getElementById("leadForm");
+    const modalClose = document.querySelector(".lead-modal-close");
+    const successMessage = document.getElementById("successMessage");
+
+    const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz1BiPiY3dCmHorO-GJszU33_hycTLxK3juE6GGr55h8VDbZYr3YVKCXs_DvEGQjl3B/exec";
+
+    // Open modal
+    function openLeadModal() {
+      leadModal.classList.add("is-open");
+      document.body.style.overflow = "hidden";
+    }
+
+    // Close modal
+    function closeLeadModal() {
+      leadModal.classList.remove("is-open");
+      document.body.style.overflow = "";
+      leadForm.style.display = "block";
+      successMessage.style.display = "none";
+      leadForm.reset();
+    }
+
+    // Add click listeners to all "Join Early Interest List" buttons
+    document.querySelectorAll('a[href="#early-interest"]').forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        openLeadModal();
+      });
+    });
+
+    // Close button
+    modalClose.addEventListener("click", closeLeadModal);
+
+    // Close on outside click
+    leadModal.addEventListener("click", (e) => {
+      if (e.target === leadModal) {
+        closeLeadModal();
+      }
+    });
+
+    // Close on Escape key
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && leadModal.classList.contains("is-open")) {
+        closeLeadModal();
+      }
+    });
+
+    // Form submission
+    leadForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(leadForm);
+      const interests = Array.from(formData.getAll("interests")).join(" | ");
+
+      const payload = {
+        name: formData.get("name"),
+        email: formData.get("email"),
+        phone: formData.get("phone"),
+        interests: interests || "Not specified",
+        newsletter: formData.get("newsletter") ? "Yes" : "No"
+      };
+
+      try {
+        const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
+          method: "POST",
+          body: new URLSearchParams(payload)
+        });
+
+        if (response.ok) {
+          // Show success message
+          leadForm.style.display = "none";
+          successMessage.style.display = "block";
+
+          // Auto-close after 4 seconds
+          setTimeout(() => {
+            closeLeadModal();
+          }, 4000);
+        } else {
+          alert("There was an error submitting the form. Please try again.");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("There was an error submitting the form. Please try again.");
+      }
     });
   </script>
 </body>
