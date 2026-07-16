@@ -2331,43 +2331,36 @@ a {
       }
     });
 
-    // Form submission
-    leadForm.addEventListener("submit", async (e) => {
+    // Form submission with iframe method (bypasses CORS)
+    leadForm.addEventListener("submit", (e) => {
       e.preventDefault();
 
       const formData = new FormData(leadForm);
       const interests = Array.from(formData.getAll("interests")).join(" | ");
 
-      const payload = {
+      const params = new URLSearchParams({
         name: formData.get("name"),
         email: formData.get("email"),
         phone: formData.get("phone"),
         interests: interests || "Not specified",
         newsletter: formData.get("newsletter") ? "Yes" : "No"
-      };
+      });
 
-      try {
-        const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
-          method: "POST",
-          body: new URLSearchParams(payload)
-        });
+      // Submit using hidden iframe to bypass CORS
+      const iframe = document.createElement("iframe");
+      iframe.style.display = "none";
+      iframe.src = GOOGLE_APPS_SCRIPT_URL + "?" + params.toString();
+      document.body.appendChild(iframe);
 
-        if (response.ok) {
-          // Show success message
-          leadForm.style.display = "none";
-          successMessage.style.display = "block";
+      // Show success message
+      leadForm.style.display = "none";
+      successMessage.style.display = "block";
 
-          // Auto-close after 4 seconds
-          setTimeout(() => {
-            closeLeadModal();
-          }, 4000);
-        } else {
-          alert("There was an error submitting the form. Please try again.");
-        }
-      } catch (error) {
-        console.error("Error:", error);
-        alert("There was an error submitting the form. Please try again.");
-      }
+      // Auto-close after 4 seconds
+      setTimeout(() => {
+        closeLeadModal();
+        document.body.removeChild(iframe);
+      }, 4000);
     });
   </script>
 </body>
