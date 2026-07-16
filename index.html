@@ -2362,11 +2362,15 @@ a {
         if (eventInfo) {
           dayCell.classList.add('event-date');
           dayCell.dataset.event = eventInfo.id;
-          dayCell.style.background = 'var(--paddocks-red)';
-          dayCell.style.color = 'white';
-          dayCell.style.fontWeight = '600';
           dayCell.style.cursor = 'pointer';
-          dayCell.innerHTML = `<div style="font-size: 0.9rem; font-weight: 600;">${day}</div><div style="font-size: 0.7rem; line-height: 1.2;">${eventInfo.name}</div>`;
+          dayCell.style.background = 'linear-gradient(135deg, rgba(132, 17, 28, 0.08), rgba(132, 17, 28, 0.03))';
+          dayCell.style.borderTop = '3px solid var(--paddocks-red)';
+          dayCell.style.borderRadius = '2px';
+          dayCell.style.position = 'relative';
+          dayCell.innerHTML = `
+            <div style="font-size: 1.1rem; font-weight: 700; color: var(--text-dark); margin-bottom: 4px;">${day}</div>
+            <div style="font-size: 0.65rem; font-weight: 600; color: var(--paddocks-red); text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.3;">${eventInfo.name}</div>
+          `;
         } else {
           dayCell.textContent = day;
         }
