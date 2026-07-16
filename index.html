@@ -1719,7 +1719,7 @@ a {
         <div class="calendar-container">
           <div class="calendar-widget">
             <div class="calendar-header">
-              <h3>June 2025</h3>
+              <h3>July 2026</h3>
               <button type="button" aria-label="Next month">›</button>
             </div>
             <div class="calendar-days">
@@ -1731,40 +1731,43 @@ a {
               <div class="calendar-day-header">Fri</div>
               <div class="calendar-day-header">Sat</div>
 
+              <div class="calendar-day"></div>
+              <div class="calendar-day"></div>
               <div class="calendar-day">1</div>
               <div class="calendar-day">2</div>
               <div class="calendar-day">3</div>
               <div class="calendar-day">4</div>
               <div class="calendar-day">5</div>
+
               <div class="calendar-day">6</div>
               <div class="calendar-day">7</div>
-
               <div class="calendar-day">8</div>
               <div class="calendar-day">9</div>
               <div class="calendar-day">10</div>
               <div class="calendar-day">11</div>
               <div class="calendar-day">12</div>
+
               <div class="calendar-day">13</div>
               <div class="calendar-day">14</div>
-
               <div class="calendar-day">15</div>
               <div class="calendar-day">16</div>
               <div class="calendar-day">17</div>
               <div class="calendar-day">18</div>
-              <div class="calendar-day">19</div>
+              <button class="calendar-day event-date" data-event="orange-blossoms-july" style="background: var(--paddocks-red); color: white; font-weight: 600; cursor: pointer;">19</button>
+
               <div class="calendar-day">20</div>
               <div class="calendar-day">21</div>
-
               <div class="calendar-day">22</div>
               <div class="calendar-day">23</div>
               <div class="calendar-day">24</div>
-              <div class="calendar-day">25</div>
-              <div class="calendar-day">26</div>
+              <button class="calendar-day event-date" data-event="jax-sports-car-museum" style="background: var(--paddocks-red); color: white; font-weight: 600; cursor: pointer;">25</button>
+              <button class="calendar-day event-date" data-event="street-wars" style="background: rgba(132, 17, 28, 0.7); color: white; font-weight: 600; cursor: pointer;">26</button>
+
               <div class="calendar-day">27</div>
               <div class="calendar-day">28</div>
-
               <div class="calendar-day">29</div>
               <div class="calendar-day">30</div>
+              <div class="calendar-day">31</div>
             </div>
           </div>
 
@@ -2083,6 +2086,17 @@ a {
     }
   </style>
 
+  <!-- EVENT DETAILS MODAL -->
+  <div id="eventModal" class="lead-modal">
+    <div class="lead-modal-content" style="max-width: 600px;">
+      <button class="lead-modal-close" id="eventModalClose" aria-label="Close event details">&times;</button>
+
+      <div id="eventDetailsContent" style="padding: 20px 0;">
+        <!-- Event details will be populated here -->
+      </div>
+    </div>
+  </div>
+
   <!-- VIDEO MODAL -->
   <div id="videoModal" class="lead-modal">
     <div style="position: relative; width: 100%; max-width: 900px; aspect-ratio: 16 / 9;">
@@ -2273,6 +2287,108 @@ a {
         // Toggle current details
         details.classList.toggle("open");
       });
+    });
+
+    // Event Data
+    const eventData = {
+      'orange-blossoms-july': {
+        title: 'Orange Blossoms Classic Car Show',
+        date: 'Sat, July 18, 2026',
+        time: '8:00 AM – 12:00 PM',
+        location: 'Orange Blossoms Beach Blvd, Jacksonville FL',
+        link: 'https://www.getoutgarage.com/events/car-club-meetups/FL/jacksonville/orange-blossoms-classic-car-show-jacksonville-fl'
+      },
+      'jax-sports-car-museum': {
+        title: 'Jax Sports Car Museum Dealership Showcase',
+        date: 'Sat, July 25, 2026',
+        time: '11:00 AM',
+        location: 'Jacksonville Sports Car Museum, Jacksonville FL',
+        link: 'https://www.eventbrite.com/b/fl--jacksonville/auto-boat-and-air/'
+      },
+      'street-wars': {
+        title: 'Street Wars Car Show',
+        date: 'Sat, July 25, 2026',
+        time: '10:00 AM – 3:00 PM',
+        location: 'Wipeouts Grill, 1585 Atlantic Blvd, Neptune Beach FL',
+        link: 'https://www.firstcoastcarculture.com/'
+      },
+      'touchdown-ocala': {
+        title: 'Touchdown in Ocala Truck Show',
+        date: 'Sat, Aug 15, 2026',
+        time: '11:00 AM',
+        location: 'Southeastern Livestock Pavilion, Ocala FL',
+        link: 'https://www.eventbrite.com/b/fl--jacksonville/auto-boat-and-air/'
+      },
+      'wheels-wheelchairs': {
+        title: 'Wheels And Wheelchairs Car Show',
+        date: 'Sat, Aug 16, 2026',
+        time: '3:00 AM',
+        location: 'Woodland Grove Health and Rehab Center, North FL',
+        link: 'https://www.eventbrite.com/d/united-states--florida/car-show/'
+      },
+      'promenade-sunset': {
+        title: 'Promenade – Sunset Walk Charity Car & Truck Show',
+        date: 'Sat, Sept 5, 2026',
+        time: '2:00 PM',
+        location: 'Promenade at Sunset Walk, Kissimmee FL',
+        link: 'https://www.eventbrite.com/d/united-states--florida/car-show/'
+      },
+      'rocketman-rally': {
+        title: '11th Annual Rocketman Rally & Show',
+        date: 'Sat, Sept 12, 2026',
+        time: '9:00 AM',
+        location: 'Trout Creek Memorial Park and Marina, St. Augustine FL',
+        link: 'https://www.eventbrite.com/b/fl--jacksonville/auto-boat-and-air/'
+      }
+    };
+
+    // Event Modal
+    const eventModal = document.getElementById("eventModal");
+    const eventModalClose = document.getElementById("eventModalClose");
+    const eventDetailsContent = document.getElementById("eventDetailsContent");
+
+    function openEventModal(eventKey) {
+      const event = eventData[eventKey];
+      if (!event) return;
+
+      eventDetailsContent.innerHTML = `
+        <h2 style="font-family: 'Racing Sans One', sans-serif; font-size: 1.8rem; font-weight: 400; text-transform: uppercase; color: var(--text-dark); margin: 0 0 24px 0;">${event.title}</h2>
+        <div style="margin-bottom: 20px;">
+          <p style="font-size: 0.9rem; color: var(--text-graphite); margin: 0 0 8px 0;"><strong>Date:</strong> ${event.date}</p>
+          <p style="font-size: 0.9rem; color: var(--text-graphite); margin: 0 0 8px 0;"><strong>Time:</strong> ${event.time}</p>
+          <p style="font-size: 0.9rem; color: var(--text-graphite); margin: 0 0 16px 0;"><strong>Location:</strong> ${event.location}</p>
+          <a href="${event.link}" target="_blank" rel="noopener noreferrer" class="button button-primary" style="display: inline-block;">Learn More & Register</a>
+        </div>
+      `;
+      eventModal.classList.add("is-open");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeEventModal() {
+      eventModal.classList.remove("is-open");
+      document.body.style.overflow = "";
+    }
+
+    // Event date click handlers
+    document.querySelectorAll('.event-date').forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        const eventKey = e.target.dataset.event;
+        openEventModal(eventKey);
+      });
+    });
+
+    eventModalClose.addEventListener("click", closeEventModal);
+
+    eventModal.addEventListener("click", (e) => {
+      if (e.target === eventModal) {
+        closeEventModal();
+      }
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && eventModal.classList.contains("is-open")) {
+        closeEventModal();
+      }
     });
 
     // Video Modal
