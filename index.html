@@ -2366,23 +2366,26 @@ a {
           dayCell.dataset.event = eventInfo.id;
           dayCell.style.cursor = 'pointer';
           dayCell.style.position = 'relative';
+          dayCell.style.display = 'flex';
+          dayCell.style.flexDirection = 'column';
+          dayCell.style.alignItems = 'center';
+          dayCell.style.justifyContent = 'center';
 
           const dayDiv = document.createElement('div');
-          dayDiv.style.fontSize = '0.95rem';
+          dayDiv.style.position = 'absolute';
+          dayDiv.style.top = '4px';
+          dayDiv.style.left = '4px';
+          dayDiv.style.fontSize = '0.75rem';
           dayDiv.style.fontWeight = '600';
           dayDiv.style.color = 'var(--text-dark)';
           dayDiv.textContent = day;
           dayCell.appendChild(dayDiv);
 
           const badgeDiv = document.createElement('div');
-          badgeDiv.style.position = 'absolute';
-          badgeDiv.style.bottom = '2px';
-          badgeDiv.style.right = '2px';
-          badgeDiv.style.left = '2px';
           badgeDiv.style.background = 'var(--paddocks-red-dark)';
           badgeDiv.style.color = 'white';
-          badgeDiv.style.padding = '3px 4px';
-          badgeDiv.style.fontSize = '0.55rem';
+          badgeDiv.style.padding = '4px 6px';
+          badgeDiv.style.fontSize = '0.6rem';
           badgeDiv.style.fontWeight = '700';
           badgeDiv.style.textTransform = 'uppercase';
           badgeDiv.style.letterSpacing = '0.3px';
@@ -2390,6 +2393,8 @@ a {
           badgeDiv.style.borderRadius = '0';
           badgeDiv.style.fontFamily = '"Montserrat", sans-serif';
           badgeDiv.style.lineHeight = '1.1';
+          badgeDiv.style.whiteSpace = 'normal';
+          badgeDiv.style.maxWidth = '90%';
           badgeDiv.textContent = eventInfo.name;
           dayCell.appendChild(badgeDiv);
         } else {
