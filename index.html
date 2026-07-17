@@ -2358,18 +2358,41 @@ a {
         const dateKey = `${year}-${month + 1}-${day}`;
         const eventInfo = monthEvents[dateKey];
 
-        const dayCell = document.createElement(eventInfo ? 'button' : 'div');
+        const dayCell = document.createElement('div');
         dayCell.className = 'calendar-day';
 
-        dayCell.classList.add('event-date');
+        if (eventInfo) {
+          dayCell.classList.add('event-date');
           dayCell.dataset.event = eventInfo.id;
           dayCell.style.cursor = 'pointer';
           dayCell.style.position = 'relative';
-          dayCell.style.background = 'var(--bg-page)';
-          dayCell.innerHTML = `
-            <div style="font-size: 1rem; font-weight: 600; color: var(--text-dark);">${day}</div>
-            <div style="position: absolute; bottom: -8px; right: -8px; background: var(--paddocks-red-dark); color: white; padding: 8px 12px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; text-align: center; min-width: 90px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); z-index: 10; border-radius: 2px;">${eventInfo.name}</div>
-          `;
+
+          const dayDiv = document.createElement('div');
+          dayDiv.style.fontSize = '1rem';
+          dayDiv.style.fontWeight = '600';
+          dayDiv.style.color = 'var(--text-dark)';
+          dayDiv.textContent = day;
+          dayCell.appendChild(dayDiv);
+
+          const badgeDiv = document.createElement('div');
+          badgeDiv.style.position = 'absolute';
+          badgeDiv.style.bottom = '-8px';
+          badgeDiv.style.right = '-8px';
+          badgeDiv.style.background = 'var(--paddocks-red-dark)';
+          badgeDiv.style.color = 'white';
+          badgeDiv.style.padding = '8px 12px';
+          badgeDiv.style.fontSize = '0.7rem';
+          badgeDiv.style.fontWeight = '600';
+          badgeDiv.style.textTransform = 'uppercase';
+          badgeDiv.style.letterSpacing = '0.5px';
+          badgeDiv.style.whiteSpace = 'nowrap';
+          badgeDiv.style.minWidth = '90px';
+          badgeDiv.style.textAlign = 'center';
+          badgeDiv.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.15)';
+          badgeDiv.style.zIndex = '10';
+          badgeDiv.style.borderRadius = '2px';
+          badgeDiv.textContent = eventInfo.name;
+          dayCell.appendChild(badgeDiv);
         } else {
           dayCell.textContent = day;
         }
