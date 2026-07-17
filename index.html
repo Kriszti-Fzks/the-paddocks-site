@@ -2441,6 +2441,15 @@ a {
     // Initial calendar generation
     generateCalendar(currentMonth, currentYear);
 
+    // Check URL parameters for auto-open modal
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('modal') && urlParams.get('modal') === 'lead') {
+      // Delay slightly to ensure DOM is ready
+      setTimeout(() => {
+        openLeadModal();
+      }, 100);
+    }
+
     // Event Modal
     const eventModal = document.getElementById("eventModal");
     const eventModalClose = document.getElementById("eventModalClose");
