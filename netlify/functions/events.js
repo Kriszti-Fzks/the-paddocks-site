@@ -1,83 +1,121 @@
-// Netlify Function: Fetches car events from firstcoastcarculture.com
-// Runs automatically - pulls live events from the source website
+// Netlify Function: Fetches car events from carcouncil.org
+// Automatically pulls live events from the Car Council calendar
 
-const https = require('https');
-
-function fetchFromURL(url) {
-  return new Promise((resolve, reject) => {
-    https.get(url, { timeout: 10000 }, (res) => {
-      let data = '';
-      res.on('data', chunk => { data += chunk; });
-      res.on('end', () => resolve(data));
-    }).on('error', reject);
-  });
-}
-
-async function scrapeEvents() {
+exports.handler = async (event, context) => {
   try {
-    // Fetch the main calendar page
-    const html = await fetchFromURL('https://www.firstcoastcarculture.com/');
+    // Fetch events from Car Council API/Calendar
+    const response = await fetch('https://www.carcouncil.org/events');
+    const html = await response.text();
 
-    // Parse event data from the page (look for event listings)
     const events = [];
 
-    // Simple regex pattern to find event data in the HTML
-    // This looks for event entries and extracts date, title, time, location
-    const eventPattern = /(?:<div class="event[^>]*>|<article[^>]*>)([\s\S]*?)(?:<\/div>|<\/article>)/gi;
+    // Parse event data from calendar HTML
+    // Look for event entries in the calendar structure
+    const eventRegex = /data-event-date="([^"]*)"[^>]*>.*?<h[2-4][^>]*>([^<]+)<\/h/gi;
 
     let match;
-    while ((match = eventPattern.exec(html)) !== null) {
-      const eventHTML = match[1];
+    const seen = new Set(); // Avoid duplicates
 
-      // Extract individual fields
-      const dateMatch = eventHTML.match(/(\d{4}-\d{2}-\d{2}|[A-Za-z]+ \d{1,2})/);
-      const titleMatch = eventHTML.match(/<h[2-4][^>]*>([^<]+)<\/h/i);
-      const timeMatch = eventHTML.match(/(\d{1,2}:\d{2}\s*(?:AM|PM|am|pm)[^<]*)/i);
-      const locationMatch = eventHTML.match(/location[^>]*>([^<]+)</i);
+    while ((match = eventRegex.exec(html)) !== null) {
+      const dateStr = match[1];
+      const title = match[2].trim();
+      const eventKey = `${dateStr}-${title}`;
 
-      if (titleMatch) {
+      if (!seen.has(eventKey)) {
+        seen.add(eventKey);
+
+        // Try to extract time and location from the event entry
+        const eventSectionRegex = new RegExp(`${title}[^<]*<[^>]*>([^<]*)<[^>]*>([^<]*)`, 'i');
+        const sectionMatch = html.match(eventSectionRegex);
+
         events.push({
-          date: dateMatch ? dateMatch[1] : new Date().toISOString().split('T')[0],
-          title: titleMatch[1].trim(),
-          badge: "Car Event",
-          time: timeMatch ? timeMatch[1] : "Time TBA",
-          location: locationMatch ? locationMatch[1].trim() : "Check website",
-          link: "https://www.firstcoastcarculture.com"
+          date: formatDate(dateStr),
+          title: title,
+          badge: determineBadge(title),
+          time: sectionMatch ? sectionMatch[1].trim() : "Check website",
+          location: sectionMatch ? sectionMatch[2].trim() : "Check website",
+          link: "https://www.carcouncil.org/events"
         });
       }
     }
 
-    return events.length > 0 ? events : fallbackEvents();
+    // If no events found, try alternative parsing
+    if (events.length === 0) {
+      // Look for event containers with more flexible patterns
+      const containerRegex = /<article[^>]*class="[^"]*event[^"]*"[^>]*>([\s\S]*?)<\/article>/gi;
+
+      while ((match = containerRegex.exec(html)) !== null) {
+        const container = match[1];
+        const titleMatch = container.match(/<h[2-4][^>]*>([^<]+)<\/h/i);
+        const dateMatch = container.match(/(\d{4}-\d{2}-\d{2}|[A-Za-z]+ \d{1,2},? \d{4})/);
+
+        if (titleMatch) {
+          const title = titleMatch[1].trim();
+          const eventKey = `${dateMatch ? dateMatch[0] : 'unknown'}-${title}`;
+
+          if (!seen.has(eventKey)) {
+            seen.add(eventKey);
+            events.push({
+              date: dateMatch ? dateMatch[0] : "Date TBA",
+              title: title,
+              badge: determineBadge(title),
+              time: "Check website",
+              location: "Check website",
+              link: "https://www.carcouncil.org/events"
+            });
+          }
+        }
+      }
+    }
+
+    return {
+      statusCode: 200,
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Cache-Control": "max-age=3600"
+      },
+      body: JSON.stringify({
+        success: true,
+        lastUpdated: new Date().toISOString(),
+        source: "carcouncil.org/events",
+        eventCount: events.length,
+        events: events.slice(0, 100) // Limit to 100 events
+      })
+    };
   } catch (error) {
-    console.error('Error scraping events:', error);
-    return fallbackEvents();
+    console.error('Error fetching events:', error);
+    return {
+      statusCode: 200,
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
+      },
+      body: JSON.stringify({
+        success: false,
+        error: error.message,
+        events: []
+      })
+    };
+  }
+};
+
+function formatDate(dateStr) {
+  try {
+    const date = new Date(dateStr);
+    return date.toISOString().split('T')[0];
+  } catch {
+    return dateStr;
   }
 }
 
-function fallbackEvents() {
-  // Fallback data if scraping fails
-  return [
-    { date: "2026-08-08", title: "Caffeine & Octane Jacksonville", badge: "Cars & Coffee", time: "7:30 AM - 10:30 AM", location: "The Avenues Mall, 10300 Southside Blvd, Jacksonville", link: "https://www.caffeineandoctane.com/c-o-jacksonville" },
-    { date: "2026-08-26", title: "Jax Beach Classic Car Cruise", badge: "Cruise-In", time: "4:00 PM - 7:00 PM", location: "Latham Plaza, 143 2nd St North, Jacksonville Beach", link: "https://jacksonvillebeach.org/" },
-    { date: "2026-09-05", title: "Northeast Florida Rod Run & Car Show", badge: "Car Show", time: "10:00 AM - 5:00 PM", location: "Northeast Florida Fairgrounds, 543378 U.S. 1, Callahan", link: "https://www.firstcoastcarculture.com" }
-  ];
+function determineBadge(title) {
+  const lower = title.toLowerCase();
+  if (lower.includes('coffee') || lower.includes('caffeine')) return "Cars & Coffee";
+  if (lower.includes('cruise')) return "Cruise-In";
+  if (lower.includes('show')) return "Car Show";
+  if (lower.includes('drag') || lower.includes('racing')) return "Drag Racing";
+  if (lower.includes('rod')) return "Rod Run";
+  if (lower.includes('charity')) return "Charity Show";
+  return "Car Event";
 }
-
-exports.handler = async (event, context) => {
-  const events = await scrapeEvents();
-
-  return {
-    statusCode: 200,
-    headers: {
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
-      "Cache-Control": "max-age=3600" // Cache for 1 hour
-    },
-    body: JSON.stringify({
-      success: true,
-      lastUpdated: new Date().toISOString(),
-      source: "firstcoastcarculture.com",
-      events: events
-    })
-  };
-};
