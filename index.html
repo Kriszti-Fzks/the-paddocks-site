@@ -2069,7 +2069,7 @@ a {
     <div style="position: relative; width: 100%; max-width: 900px; aspect-ratio: 16 / 9;">
       <button class="lead-modal-close" id="videoModalClose" aria-label="Close video">&times;</button>
       <div class="video-container" style="position: absolute; inset: 0;">
-        <iframe id="videoIframe" src="https://player.vimeo.com/video/1210268584?autoplay=1" width="100%" height="100%" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        <iframe id="videoIframe" src="https://player.vimeo.com/video/1210268584?autoplay=1&muted=1" width="100%" height="100%" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
       </div>
     </div>
   </div>
@@ -2745,18 +2745,7 @@ a {
   const calendarSection = document.querySelector("#calendar");
   const calendarContainer = calendarSection?.querySelector(".calendar-container");
 
-  if (calendarContainer && !calendarSection.querySelector(".calendar-cta")) {
-    const cta = document.createElement("div");
-
-    cta.className = "calendar-cta";
-    cta.innerHTML = `
-      <a class="button button-primary" href="car-events.html">
-        View All Car Events
-      </a>
-    `;
-
-    calendarContainer.insertAdjacentElement("afterend", cta);
-  }
+  // "View All Car Events" button removed - use calendar to browse events
 
   const previous = document.getElementById("calendarPrev");
   const next = document.getElementById("calendarNext");
