@@ -2630,5 +2630,334 @@ a {
       }
     });
   </script>
+
+  <!-- Live homepage calendar update -->
+<script>
+(() => {
+  const eventSources = {
+    caffeine: "https://www.caffeineandoctane.com/c-o-jacksonville",
+    orange: "https://www.getoutgarage.com/events/car-club-meetups/FL/jacksonville/orange-blossoms-classic-car-show-jacksonville-fl",
+    jaxBeach: "https://jacksonvillebeach.org/Calendar.aspx?EID"
+  };
+
+  const recurringEvents = [
+    {
+      title: "Caffeine & Octane Jacksonville",
+      badge: "Cars & Coffee",
+      dow: 6,
+      nth: 2,
+      time: "8:00 AM – 11:00 AM",
+      location: "The Avenues, 10300 Southside Blvd, Jacksonville, FL",
+      link: eventSources.caffeine
+    },
+    {
+      title: "Orange Blossoms Classic Car Show",
+      badge: "Car Show",
+      dow: 6,
+      nth: 3,
+      time: "8:00 AM – 12:00 PM",
+      location: "Orange Blossoms, 14329 Beach Blvd, Jacksonville, FL",
+      link: eventSources.orange
+    },
+    {
+      title: "Jacksonville Beach Classic Car Cruise",
+      badge: "Cruise-In",
+      dow: 2,
+      nth: 4,
+      time: "4:00 PM – 7:00 PM",
+      location: "Latham Plaza, Jacksonville Beach, FL",
+      link: eventSources.jaxBeach
+    }
+  ];
+
+  const style = document.createElement("style");
+
+  style.textContent = `
+    .calendar-cta {
+      margin-top: -24px;
+      text-align: center;
+    }
+
+    .calendar-day {
+      position: relative;
+      min-height: 58px;
+      overflow: visible;
+    }
+
+    .calendar-day.event-date {
+      cursor: pointer;
+    }
+
+    .calendar-day.event-date:hover {
+      background: rgba(132, 17, 28, 0.05);
+    }
+
+    .calendar-event-badge {
+      position: absolute;
+      z-index: 10;
+      bottom: -11px;
+      left: 50%;
+      max-width: calc(100% - 6px);
+      padding: 3px 6px;
+      overflow: hidden;
+      color: #ffffff;
+      background: var(--paddocks-red-dark);
+      font-family: "Montserrat", sans-serif;
+      font-size: 0.48rem;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 0.02em;
+      text-align: center;
+      text-overflow: ellipsis;
+      text-transform: uppercase;
+      white-space: nowrap;
+      transform: translateX(-50%);
+    }
+
+    @media (max-width: 700px) {
+      .calendar-container {
+        gap: 24px;
+      }
+
+      .calendar-widget {
+        padding: 16px 10px 24px;
+      }
+
+      .calendar-days {
+        gap: 4px;
+      }
+
+      .calendar-day {
+        min-height: 45px;
+        padding: 7px 2px;
+      }
+
+      .calendar-event-badge {
+        bottom: -8px;
+        padding: 2px 3px;
+        font-size: 0.38rem;
+      }
+    }
+  `;
+
+  document.head.appendChild(style);
+
+  const calendarSection = document.querySelector("#calendar");
+  const calendarContainer = calendarSection?.querySelector(".calendar-container");
+
+  if (calendarContainer && !calendarSection.querySelector(".calendar-cta")) {
+    const cta = document.createElement("div");
+
+    cta.className = "calendar-cta";
+    cta.innerHTML = `
+      <a class="button button-primary" href="car-events.html">
+        View All Car Events
+      </a>
+    `;
+
+    calendarContainer.insertAdjacentElement("afterend", cta);
+  }
+
+  const previous = document.getElementById("calendarPrev");
+  const next = document.getElementById("calendarNext");
+  const monthTitle = document.getElementById("calendarMonth");
+  const daysGrid = document.getElementById("calendarDays");
+  const eventModal = document.getElementById("eventModal");
+  const eventDetails = document.getElementById("eventDetailsContent");
+
+  if (!previous || !next || !monthTitle || !daysGrid) return;
+
+  const freshPrevious = previous.cloneNode(true);
+  const freshNext = next.cloneNode(true);
+
+  previous.replaceWith(freshPrevious);
+  next.replaceWith(freshNext);
+
+  let month = new Date().getMonth();
+  let year = new Date().getFullYear();
+
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ];
+
+  function nthWeekday(targetYear, targetMonth, weekday, occurrence) {
+    const date = new Date(targetYear, targetMonth, 1);
+
+    date.setDate(
+      1 +
+      ((weekday - date.getDay() + 7) % 7) +
+      7 * (occurrence - 1)
+    );
+
+    return date.getDate();
+  }
+
+  function eventsForMonth() {
+    return recurringEvents.map((event) => ({
+      ...event,
+      day: nthWeekday(year, month, event.dow, event.nth)
+    }));
+  }
+
+  function showEvent(event) {
+    if (!eventModal || !eventDetails) {
+      window.open(event.link, "_blank", "noopener");
+      return;
+    }
+
+    eventDetails.innerHTML = `
+      <h2 style="
+        font-family: 'Racing Sans One', sans-serif;
+        font-size: 1.8rem;
+        font-weight: 400;
+        text-transform: uppercase;
+        color: var(--text-dark);
+        margin: 0 0 24px;
+      ">
+        ${event.title}
+      </h2>
+
+      <div style="margin-bottom: 20px;">
+        <p style="font-size: .9rem; color: var(--text-graphite); margin: 0 0 8px;">
+          <strong>Date:</strong> ${monthNames[month]} ${event.day}, ${year}
+        </p>
+
+        <p style="font-size: .9rem; color: var(--text-graphite); margin: 0 0 8px;">
+          <strong>Time:</strong> ${event.time}
+        </p>
+
+        <p style="font-size: .9rem; color: var(--text-graphite); margin: 0 0 16px;">
+          <strong>Location:</strong> ${event.location}
+        </p>
+
+        <a
+          href="${event.link}"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="button button-primary"
+          style="display: inline-flex;"
+        >
+          View Organizer Details
+        </a>
+      </div>
+    `;
+
+    eventModal.classList.add("is-open");
+    document.body.style.overflow = "hidden";
+  }
+
+  function renderCalendar() {
+    monthTitle.textContent = `${monthNames[month]} ${year}`;
+    daysGrid.innerHTML = "";
+
+    ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].forEach((label) => {
+      const header = document.createElement("div");
+
+      header.className = "calendar-day-header";
+      header.textContent = label;
+
+      daysGrid.appendChild(header);
+    });
+
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const events = eventsForMonth();
+
+    for (let i = 0; i < firstDay; i += 1) {
+      const blank = document.createElement("div");
+
+      blank.className = "calendar-day";
+
+      daysGrid.appendChild(blank);
+    }
+
+    for (let day = 1; day <= daysInMonth; day += 1) {
+      const cell = document.createElement("div");
+
+      cell.className = "calendar-day";
+
+      const number = document.createElement("div");
+
+      number.style.cssText =
+        "font-size:1rem;font-weight:600;color:var(--text-dark)";
+
+      number.textContent = day;
+
+      cell.appendChild(number);
+
+      const event = events.find((item) => item.day === day);
+
+      if (event) {
+        cell.classList.add("event-date");
+
+        cell.setAttribute("role", "button");
+        cell.setAttribute("tabindex", "0");
+        cell.setAttribute(
+          "aria-label",
+          `${event.title}, ${monthNames[month]} ${day}`
+        );
+
+        const badge = document.createElement("div");
+
+        badge.className = "calendar-event-badge";
+        badge.textContent = event.badge;
+
+        cell.appendChild(badge);
+
+        cell.addEventListener("click", () => {
+          showEvent(event);
+        });
+
+        cell.addEventListener("keydown", (keyboardEvent) => {
+          if (
+            keyboardEvent.key === "Enter" ||
+            keyboardEvent.key === " "
+          ) {
+            keyboardEvent.preventDefault();
+            showEvent(event);
+          }
+        });
+      }
+
+      daysGrid.appendChild(cell);
+    }
+  }
+
+  freshPrevious.addEventListener("click", () => {
+    month -= 1;
+
+    if (month < 0) {
+      month = 11;
+      year -= 1;
+    }
+
+    renderCalendar();
+  });
+
+  freshNext.addEventListener("click", () => {
+    month += 1;
+
+    if (month > 11) {
+      month = 0;
+      year += 1;
+    }
+
+    renderCalendar();
+  });
+
+  renderCalendar();
+})();
+</script>
 </body>
 </html>
