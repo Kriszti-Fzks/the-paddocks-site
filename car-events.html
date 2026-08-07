@@ -325,14 +325,14 @@
       </p>
     </section>
 
-    <section class="section-inner">
-      <div class="month-nav">
-        <button id="prevMonth">← Previous</button>
-        <div class="month-title" id="monthTitle">August 2026</div>
-        <button id="nextMonth">Next →</button>
-      </div>
-
-      <div class="events-by-date" id="eventsContainer"></div>
+    <section class="section-inner" style="text-align: center;">
+      <iframe
+        src="https://calendar.google.com/calendar/embed?src=firstcoastcarcouncil%40gmail.com&ctz=America%2FNew_York"
+        style="border: 0; max-width: 100%; width: 100%;"
+        height="600"
+        frameborder="0"
+        scrolling="no">
+      </iframe>
     </section>
 
     <section class="footer">
@@ -343,31 +343,8 @@
   </main>
 
   <script>
-    let allEvents = [];
-
-    // Fetch events from Netlify Function
-    async function loadEvents() {
-      try {
-        const response = await fetch('/.netlify/functions/events');
-        const data = await response.json();
-        allEvents = data.events.map(event => ({
-          ...event,
-          dateDisplay: formatDate(event.date),
-          cost: "Check organizer"
-        }));
-        renderEvents();
-      } catch (error) {
-        console.error('Error loading events:', error);
-        document.getElementById("eventsContainer").innerHTML = '<div class="no-events">Unable to load events. Please try again.</div>';
-      }
-    }
-
-    function formatDate(dateStr) {
-      const date = new Date(dateStr + 'T00:00:00');
-      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-      return date.toLocaleDateString('en-US', options);
-    }
-
+    // Google Calendar is now embedded directly on the page
+    // No event fetching needed - calendar updates automatically
     const fallbackEvents = [
       // AUGUST 2026
       { date: "2026-08-03", dateDisplay: "Sunday, August 3", title: "Cruisin' Classics Cruise-in", badge: "Cruise-In", time: "1:00 PM - 4:00 PM", location: "Elks Lodge back lawn, 1855 West Road, Jacksonville", cost: "Free", link: "#" },
@@ -413,92 +390,7 @@
       { date: "2026-10-31", dateDisplay: "Friday, October 31", title: "Hillcrest Baptist Church Car Show", badge: "Charity Show", time: "11:00 AM - 2:00 PM", location: "Hillcrest Baptist Church, 7673 Collins Road", cost: "Free", link: "#" }
     ];
 
-    let currentMonth = 8; // August (0-indexed)
-    let currentYear = 2026;
-
-    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
-    function renderEvents() {
-      const monthTitle = document.getElementById("monthTitle");
-      const eventsContainer = document.getElementById("eventsContainer");
-
-      monthTitle.textContent = `${monthNames[currentMonth]} ${currentYear}`;
-      eventsContainer.innerHTML = "";
-
-      // Filter events for current month
-      const monthEvents = allEvents.filter(event => {
-        const eventDate = new Date(event.date);
-        return eventDate.getMonth() === currentMonth && eventDate.getFullYear() === currentYear;
-      });
-
-      if (monthEvents.length === 0) {
-        eventsContainer.innerHTML = '<div class="no-events">No events scheduled for this month.</div>';
-        return;
-      }
-
-      // Group events by date
-      const groupedByDate = {};
-      monthEvents.forEach(event => {
-        if (!groupedByDate[event.date]) {
-          groupedByDate[event.date] = [];
-        }
-        groupedByDate[event.date].push(event);
-      });
-
-      // Sort dates and render
-      Object.keys(groupedByDate).sort().forEach(date => {
-        const dateGroup = document.createElement("div");
-        dateGroup.className = "date-group";
-
-        const dateHeader = document.createElement("div");
-        dateHeader.className = "date-header";
-        dateHeader.textContent = groupedByDate[date][0].dateDisplay;
-        dateGroup.appendChild(dateHeader);
-
-        const eventsList = document.createElement("div");
-        eventsList.className = "events-list";
-
-        groupedByDate[date].forEach(event => {
-          const card = document.createElement("div");
-          card.className = "event-card";
-          card.innerHTML = `
-            <span class="event-badge">${event.badge}</span>
-            <h3>${event.title}</h3>
-            <div class="event-details">
-              <div class="event-detail"><strong>Time:</strong> ${event.time}</div>
-              <div class="event-detail"><strong>Location:</strong> ${event.location}</div>
-              <div class="event-detail"><strong>Cost:</strong> ${event.cost}</div>
-            </div>
-            ${event.link !== "#" ? `<a href="${event.link}" target="_blank" rel="noopener noreferrer">View Details</a>` : ""}
-          `;
-          eventsList.appendChild(card);
-        });
-
-        dateGroup.appendChild(eventsList);
-        eventsContainer.appendChild(dateGroup);
-      });
-    }
-
-    document.getElementById("prevMonth").addEventListener("click", () => {
-      currentMonth--;
-      if (currentMonth < 0) {
-        currentMonth = 11;
-        currentYear--;
-      }
-      renderEvents();
-    });
-
-    document.getElementById("nextMonth").addEventListener("click", () => {
-      currentMonth++;
-      if (currentMonth > 11) {
-        currentMonth = 0;
-        currentYear++;
-      }
-      renderEvents();
-    });
-
-    // Load events from API
-    loadEvents();
+    // Google Calendar is now embedded directly - no rendering needed
   </script>
 </body>
 </html>
