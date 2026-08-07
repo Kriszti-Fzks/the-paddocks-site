@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Car Events | The Paddocks</title>
-  <meta name="description" content="Upcoming car events and automotive gatherings in Jacksonville, Florida." />
+  <meta name="description" content="Comprehensive Jacksonville area car events and automotive gatherings calendar." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -120,24 +120,74 @@
       line-height: 1.6;
     }
 
-    /* Events Grid */
+    /* Month Navigation */
     .section-inner {
       width: min(100%, var(--content-width));
       margin: 0 auto;
       padding: clamp(60px, 10vh, 100px) var(--page-padding);
     }
 
-    .events-grid {
+    .month-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .month-nav button {
+      background: var(--paddocks-red);
+      color: var(--white);
+      border: none;
+      padding: 10px 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 180ms ease;
+    }
+
+    .month-nav button:hover {
+      background: var(--paddocks-red-dark);
+      transform: translateY(-2px);
+    }
+
+    .month-title {
+      font-family: "Racing Sans One", sans-serif;
+      font-size: 1.8rem;
+      font-weight: 400;
+      text-transform: uppercase;
+      min-width: 200px;
+      text-align: center;
+    }
+
+    /* Events by Date */
+    .events-by-date {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
       gap: 30px;
-      margin-top: 40px;
+    }
+
+    .date-group {
+      border-left: 4px solid var(--paddocks-red);
+      padding-left: 20px;
+    }
+
+    .date-header {
+      font-family: "Racing Sans One", sans-serif;
+      font-size: 1.4rem;
+      font-weight: 400;
+      text-transform: uppercase;
+      color: var(--paddocks-red);
+      margin-bottom: 16px;
+    }
+
+    .events-list {
+      display: grid;
+      gap: 16px;
     }
 
     .event-card {
       background: var(--white);
       border: 1px solid rgba(0, 0, 0, 0.1);
-      padding: 30px;
+      padding: 20px;
       border-radius: 4px;
       transition: all 180ms ease;
     }
@@ -152,48 +202,47 @@
       padding: 6px 12px;
       background: var(--paddocks-red);
       color: var(--white);
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
       border-radius: 2px;
     }
 
     .event-card h3 {
-      margin: 0 0 16px 0;
-      font-family: "Racing Sans One", sans-serif;
-      font-size: 1.5rem;
-      font-weight: 400;
-      text-transform: uppercase;
+      margin: 0 0 12px 0;
+      font-size: 1.2rem;
+      font-weight: 600;
       color: var(--text-dark);
-      line-height: 1.2;
+    }
+
+    .event-details {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 16px;
     }
 
     .event-detail {
-      margin-bottom: 12px;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       color: var(--text-graphite);
     }
 
     .event-detail strong {
       color: var(--text-dark);
-      display: block;
       font-weight: 600;
-      margin-bottom: 4px;
     }
 
     .event-card a {
       display: inline-flex;
       justify-content: center;
       align-items: center;
-      min-height: 44px;
-      padding: 0 20px;
-      margin-top: 20px;
+      min-height: 40px;
+      padding: 0 16px;
       color: var(--white);
       background: var(--paddocks-red);
       border: 2px solid var(--paddocks-red);
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       font-weight: 600;
       text-transform: uppercase;
       transition: all 180ms ease;
@@ -203,6 +252,12 @@
       background: var(--paddocks-red-dark);
       border-color: var(--paddocks-red-dark);
       transform: translateY(-2px);
+    }
+
+    .no-events {
+      text-align: center;
+      padding: 40px;
+      color: var(--text-graphite);
     }
 
     /* Footer */
@@ -224,13 +279,21 @@
         padding: 40px var(--page-padding);
       }
 
-      .events-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
+      .month-nav {
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .month-nav button {
+        padding: 12px 20px;
+      }
+
+      .month-title {
+        min-width: auto;
       }
 
       .event-card {
-        padding: 20px;
+        padding: 16px;
       }
 
       .back-link {
@@ -255,80 +318,162 @@
 
   <main>
     <section class="hero-section">
-      <h1>Upcoming Car Events</h1>
+      <h1>Jacksonville Car Events</h1>
       <p>
-        Discover automotive events and gatherings happening across Jacksonville and the First Coast.
-        Connect with enthusiasts, builders, and collectors at these curated events.
+        Discover all automotive events happening across Jacksonville and the First Coast.
+        From casual Cars & Coffee meets to major car shows and drag racing events.
       </p>
     </section>
 
     <section class="section-inner">
-      <div class="events-grid" id="eventsGrid"></div>
+      <div class="month-nav">
+        <button id="prevMonth">← Previous</button>
+        <div class="month-title" id="monthTitle">August 2026</div>
+        <button id="nextMonth">Next →</button>
+      </div>
+
+      <div class="events-by-date" id="eventsContainer"></div>
     </section>
 
     <section class="footer">
       <p>
-        Events are recurring monthly gatherings. Check with organizers for any changes or special announcements.
+        Events are updated regularly. Check with organizers for any last-minute changes or special announcements.
       </p>
     </section>
   </main>
 
   <script>
-    const recurringEvents = [
-      {
-        title: "Caffeine & Octane Jacksonville",
-        badge: "Cars & Coffee",
-        time: "8:00 AM – 11:00 AM",
-        location: "The Avenues, 10300 Southside Blvd, Jacksonville, FL",
-        frequency: "2nd Saturday of every month",
-        link: "https://www.caffeineandoctane.com/c-o-jacksonville"
-      },
-      {
-        title: "Orange Blossoms Classic Car Show",
-        badge: "Car Show",
-        time: "8:00 AM – 12:00 PM",
-        location: "Orange Blossoms, 14329 Beach Blvd, Jacksonville, FL",
-        frequency: "3rd Saturday of every month",
-        link: "https://www.getoutgarage.com/events/car-club-meetups/FL/jacksonville/orange-blossoms-classic-car-show-jacksonville-fl"
-      },
-      {
-        title: "Jacksonville Beach Classic Car Cruise",
-        badge: "Cruise-In",
-        time: "4:00 PM – 7:00 PM",
-        location: "Latham Plaza, Jacksonville Beach, FL",
-        frequency: "4th Tuesday of every month",
-        link: "https://jacksonvillebeach.org/Calendar.aspx?EID"
-      }
+    const allEvents = [
+      // AUGUST 2026
+      { date: "2026-08-03", dateDisplay: "Sunday, August 3", title: "Cruisin' Classics Cruise-in", badge: "Cruise-In", time: "1:00 PM - 4:00 PM", location: "Elks Lodge back lawn, 1855 West Road, Jacksonville", cost: "Free", link: "#" },
+      { date: "2026-08-08", dateDisplay: "Friday, August 8", title: "First Coast Car Council Cruise-in", badge: "Cruise-In", time: "11:00 AM - 2:00 PM", location: "Chick-fil-A, 1925 Wells Road, Jacksonville", cost: "Free", link: "#" },
+      { date: "2026-08-09", dateDisplay: "Saturday, August 9", title: "Caffeine & Octane Jacksonville", badge: "Cars & Coffee", time: "7:30 AM - 10:30 AM", location: "The Avenues Mall, 10300 Southside Blvd, Jacksonville", cost: "Free", link: "https://www.caffeineandoctane.com/c-o-jacksonville" },
+      { date: "2026-08-10", dateDisplay: "Sunday, August 10", title: "Orange Blossom Breakfast Show", badge: "Car Show", time: "8:00 AM - 11:00 AM", location: "Orange Blossom Diner, 14329 Beach Blvd, Jacksonville", cost: "Free Viewing", link: "#" },
+      { date: "2026-08-14", dateDisplay: "Wednesday, August 14", title: "Wheels and Worship Night Cruise-in", badge: "Cruise-In", time: "6:00 PM - 9:00 PM", location: "Church of the Eleven22, 2101 Longleaf Pine Parkway", cost: "Free", link: "#" },
+      { date: "2026-08-15", dateDisplay: "Friday, August 15", title: "Mr. Chubby's Wings Cruise-In", badge: "Cruise-In", time: "11:00 AM - 2:00 PM", location: "2349 Village Square Parkway, Fleming Island", cost: "Free", link: "#" },
+      { date: "2026-08-22", dateDisplay: "Friday, August 22", title: "Callahan Speedway Drag Racing", badge: "Drag Racing", time: "Various", location: "Callahan Speedway, Callahan, FL", cost: "Entry Fee", link: "#" },
+      { date: "2026-08-26", dateDisplay: "Tuesday, August 26", title: "Jax Beach Classic Car Cruise", badge: "Cruise-In", time: "4:00 PM - 7:00 PM", location: "Latham Plaza, 143 2nd St North, Jacksonville Beach", cost: "Free", link: "https://jacksonvillebeach.org/" },
+      { date: "2026-08-29", dateDisplay: "Friday, August 29", title: "Braderie Boulevard Classic Car Show", badge: "Car Show", time: "10:00 AM - 3:00 PM", location: "Jekyll Island Club Resort, Jekyll Island, GA", cost: "Free (50+ year vehicles)", link: "#" },
+      { date: "2026-08-29", dateDisplay: "Friday, August 29", title: "North Florida Speedway Drag Racing", badge: "Drag Racing", time: "Evening", location: "Callahan Speedway", cost: "Entry Fee", link: "https://www.northfloridaspeedway.com" },
+
+      // SEPTEMBER 2026
+      { date: "2026-09-05", dateDisplay: "Saturday, September 5", title: "Northeast Florida Rod Run & Car Show", badge: "Car Show", time: "10:00 AM - 5:00 PM", location: "Northeast Florida Fairgrounds, 543378 U.S. 1, Callahan", cost: "$20 Display | Free Spectators", link: "https://www.firstcoastcarculture.com" },
+      { date: "2026-09-07", dateDisplay: "Sunday, September 7", title: "Cruisin' Classics Cruise-in", badge: "Cruise-In", time: "1:00 PM - 4:00 PM", location: "Elks Lodge back lawn, 1855 West Road, Jacksonville", cost: "Free", link: "#" },
+      { date: "2026-09-12", dateDisplay: "Friday, September 12", title: "Caffeine & Octane Jacksonville", badge: "Cars & Coffee", time: "7:30 AM - 10:30 AM", location: "The Avenues Mall, 10300 Southside Blvd, Jacksonville", cost: "Free", link: "https://www.caffeineandoctane.com/c-o-jacksonville" },
+      { date: "2026-09-12", dateDisplay: "Friday, September 12", title: "Rocketman Rally and Show", badge: "Car Show", time: "9:30 AM - 3:00 PM", location: "Trout Creek Memorial Park, 6550 Florida 13 North, St. Johns", cost: "Free Spectators | $15 Entry", link: "#" },
+      { date: "2026-09-12", dateDisplay: "Friday, September 12", title: "First Coast Car Council Cruise-in", badge: "Cruise-In", time: "11:00 AM - 2:00 PM", location: "Chick-fil-A, 1925 Wells Road, Jacksonville", cost: "Free", link: "#" },
+      { date: "2026-09-19", dateDisplay: "Friday, September 19", title: "Truth Pointe Church Car Show", badge: "Charity Show", time: "11:00 AM - 3:00 PM", location: "5330 Dunn Avenue, Jacksonville", cost: "$20 Entry | Free Spectators", link: "#" },
+      { date: "2026-09-23", dateDisplay: "Tuesday, September 23", title: "Jax Beach Classic Car Cruise", badge: "Cruise-In", time: "4:00 PM - 7:00 PM", location: "Latham Plaza, 143 2nd St North, Jacksonville Beach", cost: "Free", link: "#" },
+      { date: "2026-09-26", dateDisplay: "Friday, September 26", title: "Built to Be Seen Car Show", badge: "Car Show", time: "9:00 AM - 1:00 PM", location: "Orange Park Mall", cost: "$30-40", link: "#" },
+      { date: "2026-09-26", dateDisplay: "Friday, September 26", title: "Endless Summer Showcase 4", badge: "Car Show", time: "11:00 AM - 4:00 PM", location: "323 E. Bay Street, Jacksonville", cost: "Free/Varies", link: "#" },
+      { date: "2026-09-26", dateDisplay: "Friday, September 26", title: "Cars & Cannons Fort Clinch", badge: "Car Show", time: "7:00 AM - 3:00 PM", location: "Fort Clinch State Park, Fernandina Beach", cost: "$50-75", link: "#" },
+      { date: "2026-09-26", dateDisplay: "Friday, September 26", title: "SAW Kustomz Car Show at Rawfest", badge: "Custom Show", time: "11:00 AM", location: "Flamingo Lake RV, 3640 Newcomb Road", cost: "Entry Fee", link: "#" },
+      { date: "2026-09-05", dateDisplay: "Saturday, September 5", title: "North Florida Speedway Racing", badge: "Drag Racing", time: "Evening", location: "Callahan Speedway", cost: "Entry Fee", link: "https://www.northfloridaspeedway.com" },
+      { date: "2026-09-26", dateDisplay: "Friday, September 26", title: "North Florida Speedway Racing", badge: "Drag Racing", time: "Evening", location: "Lake City, FL", cost: "Entry Fee", link: "https://www.northfloridaspeedway.com" },
+
+      // OCTOBER 2026
+      { date: "2026-10-03", dateDisplay: "Saturday, October 3", title: "Cruisin' to the Creek Car Show", badge: "Charity Show", time: "9:00 AM - 3:00 PM", location: "Trout Creek Memorial Park, 6550 County Road 13 North, St. Johns", cost: "$30 Entry | Free Spectators", link: "#" },
+      { date: "2026-10-05", dateDisplay: "Sunday, October 5", title: "Cruisin' Classics Cruise-in", badge: "Cruise-In", time: "1:00 PM - 4:00 PM", location: "Elks Lodge back lawn, 1855 West Road, Jacksonville", cost: "Free", link: "#" },
+      { date: "2026-10-10", dateDisplay: "Friday, October 10", title: "Caffeine & Octane Jacksonville", badge: "Cars & Coffee", time: "7:30 AM - 10:30 AM", location: "The Avenues Mall, 10300 Southside Blvd, Jacksonville", cost: "Free", link: "https://www.caffeineandoctane.com/c-o-jacksonville" },
+      { date: "2026-10-10", dateDisplay: "Friday, October 10", title: "Fall Classic Pontiac-Oakland-GMC Show", badge: "Specialty Show", time: "9:00 AM - 3:00 PM", location: "Classic Car Museum of St. Augustine, 4730 U.S. 1 South", cost: "$30 Entry | Free Spectators", link: "#" },
+      { date: "2026-10-10", dateDisplay: "Friday, October 10", title: "Motore Di Elite Auto Show", badge: "Auto Show", time: "11:00 AM - 9:30 PM", location: "Daytona International Speedway, Daytona Beach", cost: "$29.26 Admission", link: "#" },
+      { date: "2026-10-10", dateDisplay: "Friday, October 10", title: "First Coast Car Council Cruise-in", badge: "Cruise-In", time: "11:00 AM - 2:00 PM", location: "Chick-fil-A, 1925 Wells Road, Jacksonville", cost: "Free", link: "#" },
+      { date: "2026-10-10", dateDisplay: "Friday, October 10", title: "North Florida Speedway Racing", badge: "Drag Racing", time: "Evening", location: "Lake City, FL", cost: "Entry Fee", link: "https://www.northfloridaspeedway.com" },
+      { date: "2026-10-17", dateDisplay: "Friday, October 17", title: "30th Annual 8 Flags Car Show", badge: "Major Show", time: "9:00 AM - 3:00 PM", location: "Centre Street, Downtown Fernandina Beach", cost: "$30 Pre-Reg | Free Spectators", link: "#" },
+      { date: "2026-10-24", dateDisplay: "Friday, October 24", title: "Fall-O-Ween Festival Car Show", badge: "Themed Show", time: "11:00 AM - 2:00 PM", location: "Northside Church of God, 5252 Dunn Avenue", cost: "Free", link: "#" },
+      { date: "2026-10-24", dateDisplay: "Friday, October 24", title: "Good Sam Car Show", badge: "Car Show", time: "10:00 AM - 2:00 PM", location: "Tanglewood Station, 1241 Blanding Blvd", cost: "Free", link: "#" },
+      { date: "2026-10-24", dateDisplay: "Friday, October 24", title: "4th Annual Car Show", badge: "Car Show", time: "10:00 AM - 2:00 PM", location: "Immanuel Anglican Church, Keystone Heights", cost: "Free", link: "#" },
+      { date: "2026-10-24", dateDisplay: "Friday, October 24", title: "North Florida Speedway Racing", badge: "Drag Racing", time: "Evening", location: "Lake City, FL", cost: "Entry Fee", link: "https://www.northfloridaspeedway.com" },
+      { date: "2026-10-28", dateDisplay: "Tuesday, October 28", title: "Jax Beach Classic Car Cruise", badge: "Cruise-In", time: "4:00 PM - 7:00 PM", location: "Latham Plaza, 143 2nd St North, Jacksonville Beach", cost: "Free", link: "#" },
+      { date: "2026-10-31", dateDisplay: "Friday, October 31", title: "Hillcrest Baptist Church Car Show", badge: "Charity Show", time: "11:00 AM - 2:00 PM", location: "Hillcrest Baptist Church, 7673 Collins Road", cost: "Free", link: "#" }
     ];
 
-    const eventsGrid = document.getElementById("eventsGrid");
+    let currentMonth = 8; // August (0-indexed)
+    let currentYear = 2026;
 
-    recurringEvents.forEach((event) => {
-      const card = document.createElement("div");
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-      card.className = "event-card";
-      card.innerHTML = `
-        <span class="event-badge">${event.badge}</span>
-        <h3>${event.title}</h3>
-        <div class="event-detail">
-          <strong>Frequency</strong>
-          ${event.frequency}
-        </div>
-        <div class="event-detail">
-          <strong>Time</strong>
-          ${event.time}
-        </div>
-        <div class="event-detail">
-          <strong>Location</strong>
-          ${event.location}
-        </div>
-        <a href="${event.link}" target="_blank" rel="noopener noreferrer">
-          View Event Details
-        </a>
-      `;
+    function renderEvents() {
+      const monthTitle = document.getElementById("monthTitle");
+      const eventsContainer = document.getElementById("eventsContainer");
 
-      eventsGrid.appendChild(card);
+      monthTitle.textContent = `${monthNames[currentMonth]} ${currentYear}`;
+      eventsContainer.innerHTML = "";
+
+      // Filter events for current month
+      const monthEvents = allEvents.filter(event => {
+        const eventDate = new Date(event.date);
+        return eventDate.getMonth() === currentMonth && eventDate.getFullYear() === currentYear;
+      });
+
+      if (monthEvents.length === 0) {
+        eventsContainer.innerHTML = '<div class="no-events">No events scheduled for this month.</div>';
+        return;
+      }
+
+      // Group events by date
+      const groupedByDate = {};
+      monthEvents.forEach(event => {
+        if (!groupedByDate[event.date]) {
+          groupedByDate[event.date] = [];
+        }
+        groupedByDate[event.date].push(event);
+      });
+
+      // Sort dates and render
+      Object.keys(groupedByDate).sort().forEach(date => {
+        const dateGroup = document.createElement("div");
+        dateGroup.className = "date-group";
+
+        const dateHeader = document.createElement("div");
+        dateHeader.className = "date-header";
+        dateHeader.textContent = groupedByDate[date][0].dateDisplay;
+        dateGroup.appendChild(dateHeader);
+
+        const eventsList = document.createElement("div");
+        eventsList.className = "events-list";
+
+        groupedByDate[date].forEach(event => {
+          const card = document.createElement("div");
+          card.className = "event-card";
+          card.innerHTML = `
+            <span class="event-badge">${event.badge}</span>
+            <h3>${event.title}</h3>
+            <div class="event-details">
+              <div class="event-detail"><strong>Time:</strong> ${event.time}</div>
+              <div class="event-detail"><strong>Location:</strong> ${event.location}</div>
+              <div class="event-detail"><strong>Cost:</strong> ${event.cost}</div>
+            </div>
+            ${event.link !== "#" ? `<a href="${event.link}" target="_blank" rel="noopener noreferrer">View Details</a>` : ""}
+          `;
+          eventsList.appendChild(card);
+        });
+
+        dateGroup.appendChild(eventsList);
+        eventsContainer.appendChild(dateGroup);
+      });
+    }
+
+    document.getElementById("prevMonth").addEventListener("click", () => {
+      currentMonth--;
+      if (currentMonth < 0) {
+        currentMonth = 11;
+        currentYear--;
+      }
+      renderEvents();
     });
+
+    document.getElementById("nextMonth").addEventListener("click", () => {
+      currentMonth++;
+      if (currentMonth > 11) {
+        currentMonth = 0;
+        currentYear++;
+      }
+      renderEvents();
+    });
+
+    // Initial render
+    renderEvents();
   </script>
 </body>
 </html>
