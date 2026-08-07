@@ -2745,7 +2745,18 @@ a {
   const calendarSection = document.querySelector("#calendar");
   const calendarContainer = calendarSection?.querySelector(".calendar-container");
 
-  // "View All Car Events" button removed - use calendar to browse events
+  if (calendarContainer && !calendarSection.querySelector(".calendar-cta")) {
+    const cta = document.createElement("div");
+
+    cta.className = "calendar-cta";
+    cta.innerHTML = `
+      <a class="button button-primary" href="car-events.html">
+        View All Car Events
+      </a>
+    `;
+
+    calendarContainer.insertAdjacentElement("afterend", cta);
+  }
 
   const previous = document.getElementById("calendarPrev");
   const next = document.getElementById("calendarNext");
