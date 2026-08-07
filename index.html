@@ -2634,13 +2634,30 @@ a {
   <!-- Live homepage calendar update -->
 <script>
 (() => {
+  let allCalendarEvents = [];
+
+  // Fetch events from Netlify Function
+  async function loadEvents() {
+    try {
+      const response = await fetch('/.netlify/functions/events');
+      const data = await response.json();
+      allCalendarEvents = data.events || [];
+      renderCalendar();
+    } catch (error) {
+      console.error('Error loading events:', error);
+      // Fallback to empty events on error
+      allCalendarEvents = [];
+      renderCalendar();
+    }
+  }
+
   const eventSources = {
     caffeine: "https://www.caffeineandoctane.com/c-o-jacksonville",
     orange: "https://www.getoutgarage.com/events/car-club-meetups/FL/jacksonville/orange-blossoms-classic-car-show-jacksonville-fl",
     jaxBeach: "https://jacksonvillebeach.org/Calendar.aspx?EID"
   };
 
-  const allCalendarEvents = [
+  const fallbackEvents = [
     // AUGUST 2026
     { date: "2026-08-03", title: "Cruisin' Classics Cruise-in", badge: "Cruise-In", time: "1:00 PM - 4:00 PM", location: "Elks Lodge back lawn, 1855 West Road, Jacksonville", link: "" },
     { date: "2026-08-08", title: "First Coast Car Council Cruise-in", badge: "Cruise-In", time: "11:00 AM - 2:00 PM", location: "Chick-fil-A, 1925 Wells Road, Jacksonville", link: "" },
@@ -2967,7 +2984,7 @@ a {
     renderCalendar();
   });
 
-  renderCalendar();
+  loadEvents();
 })();
 </script>
 </body>

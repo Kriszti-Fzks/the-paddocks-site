@@ -343,7 +343,32 @@
   </main>
 
   <script>
-    const allEvents = [
+    let allEvents = [];
+
+    // Fetch events from Netlify Function
+    async function loadEvents() {
+      try {
+        const response = await fetch('/.netlify/functions/events');
+        const data = await response.json();
+        allEvents = data.events.map(event => ({
+          ...event,
+          dateDisplay: formatDate(event.date),
+          cost: "Check organizer"
+        }));
+        renderEvents();
+      } catch (error) {
+        console.error('Error loading events:', error);
+        document.getElementById("eventsContainer").innerHTML = '<div class="no-events">Unable to load events. Please try again.</div>';
+      }
+    }
+
+    function formatDate(dateStr) {
+      const date = new Date(dateStr + 'T00:00:00');
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      return date.toLocaleDateString('en-US', options);
+    }
+
+    const fallbackEvents = [
       // AUGUST 2026
       { date: "2026-08-03", dateDisplay: "Sunday, August 3", title: "Cruisin' Classics Cruise-in", badge: "Cruise-In", time: "1:00 PM - 4:00 PM", location: "Elks Lodge back lawn, 1855 West Road, Jacksonville", cost: "Free", link: "#" },
       { date: "2026-08-08", dateDisplay: "Friday, August 8", title: "First Coast Car Council Cruise-in", badge: "Cruise-In", time: "11:00 AM - 2:00 PM", location: "Chick-fil-A, 1925 Wells Road, Jacksonville", cost: "Free", link: "#" },
@@ -472,8 +497,8 @@
       renderEvents();
     });
 
-    // Initial render
-    renderEvents();
+    // Load events from API
+    loadEvents();
   </script>
 </body>
 </html>
