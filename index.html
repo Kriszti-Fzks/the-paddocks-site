@@ -66,6 +66,19 @@
 }
 </script>
 
+  <!-- Google tag (gtag.js) — GA4 property "Paddocks.us", added 2026-08-24 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DYLKNX9VV7"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DYLKNX9VV7');
+  </script>
+  <link rel="icon" href="favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="preload" as="image" href="assets/web/hero.webp" type="image/webp" fetchpriority="high" />
+  <style>picture{display:contents}:where(img[width][height]){height:auto}</style>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -1549,7 +1562,7 @@ a {
       <a href="#home" aria-label="The Paddocks home">
         <img
           class="brand-logo"
-          src="Burgundy_logo.png"
+          src="assets/web/logo.png" width="1200" height="150"
           alt="The Paddocks"
         />
       </a>
@@ -1561,7 +1574,6 @@ a {
         <a href="#calendar">Events</a>
         <a href="#resources">Resources</a>
         <a href="#contact">Contact Us</a>
-        <a href="/faq.html">FAQ</a>
       </nav>
 
       <a class="header-cta" href="#early-interest">
@@ -1587,7 +1599,6 @@ a {
         <a href="#calendar">Events</a>
         <a href="#resources">Resources</a>
         <a href="#contact">Contact Us</a>
-        <a href="/faq.html">FAQ</a>
         <a class="mobile-cta" href="#early-interest">
           Join Early Interest List
         </a>
@@ -1598,11 +1609,7 @@ a {
   <main>
     <!-- HERO SECTION -->
     <section id="home" class="hero" aria-labelledby="hero-title">
-      <img
-        class="hero-image"
-        src="Hero_image.png"
-        alt="Modern architectural automotive space at The Paddocks"
-      />
+      <picture><source srcset="assets/web/hero.webp" type="image/webp" /><img src="assets/web/hero.jpg" width="1600" height="900" fetchpriority="high" class="hero-image" alt="Modern architectural automotive space at The Paddocks" /></picture>
       <div class="hero-overlay"></div>
 
       <div class="hero-inner">
@@ -1656,31 +1663,31 @@ a {
 
         <div class="experience-grid">
           <div class="experience-item">
-            <img src="Experience_1.jpg" alt="Architectural Excellence" />
+            <picture><source srcset="assets/web/experience-1.webp" type="image/webp" /><img src="assets/web/experience-1.jpg" width="1537" height="1023" loading="lazy" decoding="async" alt="Architectural Excellence: Timeless architecture that elevates every arrival." /></picture>
             <h3>Architectural Excellence</h3>
             <p>Timeless architecture that elevates every arrival.</p>
           </div>
 
           <div class="experience-item">
-            <img src="Experience_2.jpg" alt="Private Ownership" />
+            <picture><source srcset="assets/web/experience-2.webp" type="image/webp" /><img src="assets/web/experience-2.jpg" width="1537" height="1023" loading="lazy" decoding="async" alt="Private Ownership: Your space. Your collection. Your rules." /></picture>
             <h3>Private Ownership</h3>
             <p>Your space. Your collection. Your rules.</p>
           </div>
 
           <div class="experience-item">
-            <img src="Experience_3.jpg" alt="Like-Minded Community" />
+            <picture><source srcset="assets/web/experience-3.webp" type="image/webp" /><img src="assets/web/experience-3.jpg" width="1536" height="1024" loading="lazy" decoding="async" alt="Like-Minded Community: A place where enthusiasts naturally connect." /></picture>
             <h3>Like-Minded Community</h3>
             <p>A place where enthusiasts naturally connect.</p>
           </div>
 
           <div class="experience-item">
-            <img src="Experience_4.jpg" alt="Built For Enthusiasts" />
+            <picture><source srcset="assets/web/experience-4.webp" type="image/webp" /><img src="assets/web/experience-4.jpg" width="1536" height="1024" loading="lazy" decoding="async" alt="Built For Enthusiasts: Designed around the way you live, build, and enjoy your passion." /></picture>
             <h3>Built For Enthusiasts</h3>
             <p>Designed around the way you live, build, and enjoy your passion.</p>
           </div>
 
           <div class="experience-item">
-            <img src="Experience_5.jpg" alt="A Lasting Investment" />
+            <picture><source srcset="assets/web/experience-5.webp" type="image/webp" /><img src="assets/web/experience-5.jpg" width="1600" height="841" loading="lazy" decoding="async" alt="A Lasting Investment: A timeless destination built to hold value for generations." /></picture>
             <h3>A Lasting Investment</h3>
             <p>A timeless destination built to hold value for generations.</p>
           </div>
@@ -1719,42 +1726,42 @@ a {
           <!-- The Enthusiast -->
           <div>
             <h3 style="font-family: 'Racing Sans One', sans-serif; font-size: 1.3rem; font-weight: 400; text-transform: uppercase; color: var(--text-dark); margin: 0 0 20px 0;">The Enthusiast</h3>
-            <img src="assets/Gallery_3.jpg" alt="The Enthusiast - dedicated automotive passion space" style="width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 4px; margin-bottom: 16px; display: block;" />
+            <picture><source srcset="assets/web/gallery-3.webp" type="image/webp" /><img src="assets/web/gallery-3.jpg" width="1600" height="900" loading="lazy" decoding="async" alt="The Enthusiast - dedicated automotive passion space" style="width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 4px; margin-bottom: 16px; display: block;" /></picture>
             <p style="font-size: 0.95rem; line-height: 1.6; color: var(--text-graphite); margin: 0;">Dedicated spaces for passionate automotive lovers who want a true sanctuary for their hobby and personal projects.</p>
           </div>
 
           <!-- The Builder -->
           <div>
             <h3 style="font-family: 'Racing Sans One', sans-serif; font-size: 1.3rem; font-weight: 400; text-transform: uppercase; color: var(--text-dark); margin: 0 0 20px 0;">The Builder</h3>
-            <img src="assets/Gallery_5.jpg" alt="The Builder - workshop space with tools and equipment" style="width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 4px; margin-bottom: 16px; display: block;" />
+            <picture><source srcset="assets/web/gallery-5.webp" type="image/webp" /><img src="assets/web/gallery-5.jpg" width="1448" height="1086" loading="lazy" decoding="async" alt="The Builder - workshop space with tools and equipment" style="width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 4px; margin-bottom: 16px; display: block;" /></picture>
             <p style="font-size: 0.95rem; line-height: 1.6; color: var(--text-graphite); margin: 0;">Full workshop environments with power service, HVAC, and custom configurations for restoration and fabrication projects.</p>
           </div>
 
           <!-- The Collector -->
           <div>
             <h3 style="font-family: 'Racing Sans One', sans-serif; font-size: 1.3rem; font-weight: 400; text-transform: uppercase; color: var(--text-dark); margin: 0 0 20px 0;">The Collector</h3>
-            <img src="assets/Gallery_2.jpg" alt="The Collector - garage space for automotive collections" style="width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 4px; margin-bottom: 16px; display: block;" />
+            <picture><source srcset="assets/web/gallery-2.webp" type="image/webp" /><img src="assets/web/gallery-2.jpg" width="1537" height="1023" loading="lazy" decoding="async" alt="The Collector - garage space for automotive collections" style="width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 4px; margin-bottom: 16px; display: block;" /></picture>
             <p style="font-size: 0.95rem; line-height: 1.6; color: var(--text-graphite); margin: 0;">Curated spaces designed to showcase and preserve prized automotive collections with climate control and security.</p>
           </div>
 
           <!-- The Entrepreneur -->
           <div>
             <h3 style="font-family: 'Racing Sans One', sans-serif; font-size: 1.3rem; font-weight: 400; text-transform: uppercase; color: var(--text-dark); margin: 0 0 20px 0;">The Entrepreneur</h3>
-            <img src="assets/Gallery_1.jpg" alt="The Entrepreneur - business and retail space" style="width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 4px; margin-bottom: 16px; display: block;" />
+            <picture><source srcset="assets/web/gallery-1.webp" type="image/webp" /><img src="assets/web/gallery-1.jpg" width="1600" height="686" loading="lazy" decoding="async" alt="The Entrepreneur - business and retail space" style="width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 4px; margin-bottom: 16px; display: block;" /></picture>
             <p style="font-size: 0.95rem; line-height: 1.6; color: var(--text-graphite); margin: 0;">Professional spaces designed for automotive-related businesses, services, and retail opportunities within the community.</p>
           </div>
 
           <!-- The Legacy Owner -->
           <div>
             <h3 style="font-family: 'Racing Sans One', sans-serif; font-size: 1.3rem; font-weight: 400; text-transform: uppercase; color: var(--text-dark); margin: 0 0 20px 0;">The Legacy Owner</h3>
-            <img src="assets/Gallery_4.jpg" alt="The Legacy Owner - multigenerational space" style="width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 4px; margin-bottom: 16px; display: block;" />
+            <picture><source srcset="assets/web/gallery-4.webp" type="image/webp" /><img src="assets/web/gallery-4.jpg" width="1536" height="1024" loading="lazy" decoding="async" alt="The Legacy Owner - multigenerational space" style="width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 4px; margin-bottom: 16px; display: block;" /></picture>
             <p style="font-size: 0.95rem; line-height: 1.6; color: var(--text-graphite); margin: 0;">Timeless spaces designed to be passed down through generations, holding value and memories for years to come.</p>
           </div>
 
           <!-- The Community -->
           <div>
             <h3 style="font-family: 'Racing Sans One', sans-serif; font-size: 1.3rem; font-weight: 400; text-transform: uppercase; color: var(--text-dark); margin: 0 0 20px 0;">The Community</h3>
-            <img src="assets/Lobby.jpg" alt="The Paddocks community lobby and gathering space" style="width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 4px; margin-bottom: 16px; display: block;" />
+            <img src="assets/Lobby.jpg" width="1440" height="810" loading="lazy" decoding="async" alt="The Paddocks community lobby and gathering space" style="width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 4px; margin-bottom: 16px; display: block;" />
             <p style="font-size: 0.95rem; line-height: 1.6; color: var(--text-graphite); margin: 0;">Shared spaces that bring enthusiasts together—where like-minded owners connect, collaborate, and celebrate their passion.</p>
           </div>
         </div>
@@ -1788,6 +1795,7 @@ a {
         <div class="calendar-container" style="display: flex; justify-content: center; padding: 40px 0;">
           <div style="width: 100%; max-width: 900px;">
             <iframe
+              title="The Paddocks events calendar" loading="lazy"
               src="https://calendar.google.com/calendar/embed?src=thepaddocks.eventscalander%40gmail.com&src=firstcoastcarcouncil%40gmail.com&ctz=America%2FNew_York"
               style="border: 0; width: 100%; height: 600px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);"
               frameborder="0"
@@ -1834,7 +1842,8 @@ a {
             <img
               class="carousel-image"
               src="assets/Garage_1.jpeg"
-              alt="Garage Configuration"
+              width="1802" height="876" loading="lazy" decoding="async"
+              alt="Garage configuration plan 1 of 6"
             />
           </div>
 
@@ -1894,8 +1903,8 @@ a {
           </div>
 
           <div class="floorplan-container">
-            <img src="assets/Floorplan.png" alt="The Paddocks site floorplan" class="floorplan-image" />
-            <a href="https://thepaddocks.us/wp-content/uploads/2025/08/Condo-Purchase-Contract_Paddocks_updated-7.31.25-clean.pdf" class="contract-link" target="_blank" rel="noopener noreferrer">Purchase Contract</a>
+            <img src="assets/web/floorplan.png" width="1408" height="922" loading="lazy" decoding="async" alt="The Paddocks site floorplan showing units 1 to 10" class="floorplan-image" />
+            <a href="docs/The-Paddocks-Purchase-Agreement.pdf" class="contract-link" target="_blank" rel="noopener noreferrer">Purchase Contract</a>
           </div>
         </div>
       </div>
@@ -2069,13 +2078,6 @@ a {
     </section>
 
   </main>
-  <footer class="site-footer" style="background:#111;color:#eee;padding:40px 24px;font-size:.95rem">
-    <div style="max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:40px;justify-content:space-between">
-      <div><strong>The Paddocks</strong><br>7215 Golden Wings Road<br>Jacksonville, FL 32244<br><a style="color:#eee" href="tel:+19045828459">(904) 582-8459</a></div>
-      <div><strong>Explore</strong><ul style="list-style:none;padding:0;margin:0;line-height:1.9"><li><a style="color:#eee" href="/garage-condos-jacksonville.html">Garage Condos Jacksonville</a></li><li><a style="color:#eee" href="/car-condos-for-sale-jacksonville.html">Car Condos for Sale</a></li><li><a style="color:#eee" href="/units/standard-unit.html">Standard Unit (1,500 sq ft)</a></li><li><a style="color:#eee" href="/units/oversized-unit.html">Oversized Unit #10</a></li><li><a style="color:#eee" href="/garage-condo-mezzanine.html">Private Mezzanines</a></li><li><a style="color:#eee" href="/location.html">Location</a></li><li><a style="color:#eee" href="/faq.html">FAQ</a></li></ul></div>
-    </div>
-  </footer>
-
 
   <style>
     .video-container {
@@ -2125,7 +2127,7 @@ a {
     <div style="position: relative; width: 100%; max-width: 900px; aspect-ratio: 16 / 9;">
       <button class="lead-modal-close" id="videoModalClose" aria-label="Close video">&times;</button>
       <div class="video-container" style="position: absolute; inset: 0;">
-        <iframe id="videoIframe" src="https://player.vimeo.com/video/1210268584?autoplay=1&muted=1" width="100%" height="100%" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        <iframe id="videoIframe" title="The Paddocks promotional video" src="https://player.vimeo.com/video/1210268584?autoplay=1&muted=1" width="100%" height="100%" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
       </div>
     </div>
   </div>
@@ -2136,7 +2138,7 @@ a {
       <button class="lead-modal-close" aria-label="Close form">&times;</button>
 
       <div class="lead-modal-header">
-        <img src="Burgundy_logo.png" alt="The Paddocks" class="lead-modal-logo" />
+        <img src="assets/web/logo.png" width="1200" height="150" loading="lazy" alt="The Paddocks" class="lead-modal-logo" />
         <p class="lead-modal-tagline">A GARAGE CONDOMINIUM COMMUNITY</p>
       </div>
 
@@ -2215,7 +2217,7 @@ a {
     const menuToggle = document.querySelector(".menu-toggle");
     const mobileMenu = document.querySelector("#mobile-menu");
 
-    menuToggle.addEventListener("click", () => {
+    menuToggle?.addEventListener("click", () => {
       const isOpen = menuToggle.classList.toggle("is-open");
 
       mobileMenu.classList.toggle("is-open", isOpen);
@@ -2263,6 +2265,7 @@ a {
     function updateCarousel(index) {
       currentIndex = (index + garageConfigs.length) % garageConfigs.length;
       carouselImage.src = garageConfigs[currentIndex];
+      carouselImage.alt = `Garage configuration plan ${currentIndex + 1} of ${garageConfigs.length}`;
 
       indicators.forEach((indicator, i) => {
         indicator.classList.toggle("active", i === currentIndex);
@@ -2386,6 +2389,7 @@ a {
       const calendarMonth = document.getElementById('calendarMonth');
       const calendarDays = document.getElementById('calendarDays');
 
+      if (!calendarMonth || !calendarDays) return;
       calendarMonth.textContent = `${monthNames[month]} ${year}`;
       calendarDays.innerHTML = '';
 
@@ -2476,7 +2480,7 @@ a {
     }
 
     // Calendar navigation
-    document.getElementById('calendarPrev').addEventListener('click', () => {
+    document.getElementById('calendarPrev')?.addEventListener('click', () => {
       currentMonth--;
       if (currentMonth < 0) {
         currentMonth = 11;
@@ -2485,7 +2489,7 @@ a {
       generateCalendar(currentMonth, currentYear);
     });
 
-    document.getElementById('calendarNext').addEventListener('click', () => {
+    document.getElementById('calendarNext')?.addEventListener('click', () => {
       currentMonth++;
       if (currentMonth > 11) {
         currentMonth = 0;
